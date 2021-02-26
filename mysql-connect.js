@@ -13,9 +13,9 @@ let connectionPool = mysql.createPool({
 
 //Build query
 
-function insertData(name, views, subs, popular) {
-  let sql = `INSERT INTO creator (id, name, img, ytURL, email)        
-  VALUES (4, '${name}', '${views}', '${subs}', '${popular}')`;
+function insertData(id,name, genres, ratings,image,premiered) {
+  let sql = `INSERT INTO TVShows (id, name, genres, ratings, premiered,image)        
+  VALUES (default, '${name}', '${genres}', '${ratings}', '${premiered}', '${image}')`;
 
   connectionPool.query(sql, (err, result) => {
     if (err) {
@@ -30,7 +30,8 @@ function insertData(name, views, subs, popular) {
 /* Outputs all of the employees */
 function getEmployees() {
   //Build query
-  let sql = "SELECT * FROM creator";
+  let sql = "SELECT * FROM TVShows";
+  let data ;
 
   //Execute query and output results
   connectionPool.query(sql, (err, result) => {
@@ -40,8 +41,11 @@ function getEmployees() {
     } else {
       //Output results in JSON format - a web service would return this string.
       console.log(JSON.stringify(result));
+      data = JSON.stringify(result);
+      // return JSON.stringify(data);
     }
   });
+  return data;
 }
 
 module.exports = { insertData, getEmployees };
