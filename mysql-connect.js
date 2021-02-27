@@ -1,4 +1,6 @@
-const { request } = require("express");
+const request = require("express");
+const xhttp = require("http");
+const axios = require("axios");
 
 const mysql = require("mysql");
 
@@ -13,7 +15,7 @@ let connectionPool = mysql.createPool({
 
 //Build query
 
-function insertData(id,name, genres, ratings,image,premiered) {
+function insertData(id, name, genres, ratings, image, premiered) {
   let sql = `INSERT INTO TVShows (id, name, genres, ratings, premiered,image)        
   VALUES (default, '${name}', '${genres}', '${ratings}', '${premiered}', '${image}')`;
 
@@ -28,24 +30,23 @@ function insertData(id,name, genres, ratings,image,premiered) {
 }
 
 /* Outputs all of the employees */
-function getEmployees() {
+
+/* Returns a promise to get employees. */
+async function getEmployees() {
   //Build query
   let sql = "SELECT * FROM TVShows";
-  let data ;
-
-  //Execute query and output results
-  connectionPool.query(sql, (err, result) => {
-    if (err) {
-      //Check for errors
-      console.error("Error executing query: " + JSON.stringify(err));
-    } else {
-      //Output results in JSON format - a web service would return this string.
-      console.log(JSON.stringify(result));
-      data = JSON.stringify(result);
-      // return JSON.stringify(data);
-    }
-  });
-  return data;
+  //Wrap the execution of the query in a promise
+  return new Promise((resolve, reject) => {
+    connectionPool.query(sql, (err, result) => {
+      if (err) {
+        //Check for errors
+        reject("Error executing query: " + JSON.stringify(err));
+      } else {
+        //Resolve promise with results
+        resolve(result);
+      }
+    });
+  })
 }
 
 module.exports = { insertData, getEmployees };
