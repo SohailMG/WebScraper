@@ -26,7 +26,7 @@ app.post("/searchQuery", (request, response) => {
         data = JSON.parse(body);
         // console.log(JSON.parse(body));
       }
-      db.insertData(data.id,
+      db.storeNewShow(data.id,
         data.name,
         data.genres,
         data.rating.average,
@@ -63,17 +63,23 @@ app.get("/shows", function (req, res) {
   res.send(showInfo);
 });
 
+/**
+ * scrapes website titles of top 5 shows currently trending
+ * then makes get request for api on info for each title
+ */
 (async function getTrendingShows(){ 
+  db.deleteCurrentData();
   const showsArr = await scrapeTrending();
-  showsArr.forEach(element => {
+  showsArr.forEach(showTitle => {
     requestAPI(
-      `${APIEndpoint}/singlesearch/shows?q=${element}`,
+      `${APIEndpoint}/singlesearch/shows?q=${showTitle}`,
       function (error, response, body) {
         if (!error && response.statusCode == 200) {
           data = JSON.parse(body);
           // console.log(JSON.parse(body));
         }
-        console.log(data.id,
+        
+        db.storeTrendings(data.id,
           data.name,
           data.genres,
           data.rating.average,

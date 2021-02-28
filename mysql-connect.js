@@ -15,7 +15,7 @@ let connectionPool = mysql.createPool({
 
 //Build query
 
-function insertData(id, name, genres, ratings, image, premiered) {
+function storeNewShow(id, name, genres, ratings, image, premiered) {
   let sql = `INSERT INTO TVShows (id, name, genres, ratings, premiered,image)        
   VALUES (default, '${name}', '${genres}', '${ratings}', '${premiered}', '${image}')`;
 
@@ -29,6 +29,28 @@ function insertData(id, name, genres, ratings, image, premiered) {
   });
 }
 
+function storeTrendings(id, name, genres, ratings, image, premiered) {
+  let sql = `INSERT INTO Trending (id, name, genres, ratings, premiered,image)        
+  VALUES (default, '${name}', '${genres}', '${ratings}', '${premiered}', '${image}')`;
+
+  connectionPool.query(sql, (err, result) => {
+    if (err) {
+      //Check for errors
+      console.error(`Error executing query: ${JSON.stringify(err)}`);
+    } else {
+      console.log(JSON.stringify(result));
+    }
+  });
+}
+
+function deleteCurrentData(){
+    //Delete all customers with the address "Mountain 21":
+    var sql = "DELETE FROM Trending"
+    connectionPool.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log("Number of records deleted: " + result.affectedRows);
+    });
+}
 /* Outputs all of the employees */
 
 /* Returns a promise to get employees. */
@@ -49,6 +71,6 @@ async function getEmployees() {
   })
 }
 
-module.exports = { insertData, getEmployees };
+module.exports = { storeNewShow, getEmployees ,storeTrendings,deleteCurrentData};
 
 //Execute query and output resul

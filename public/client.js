@@ -1,7 +1,7 @@
 window.onload = showInfo;
 
 function submitLink() {
-  let searchQuery = document.getElementById("chanelURL").value;
+  let searchQuery = document.getElementById("showTitle").value;
   let queryStr = searchQuery.replace(/\s+/g, "-").toLowerCase();
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
@@ -30,4 +30,26 @@ function showInfo() {
   };
   xhttp.open("GET", "/shows", true);
   xhttp.send();
+}
+
+window.onscroll = function() {myFunction()};
+
+var navbar = document.getElementsByClassName("navbar")[0];
+var sticky = navbar.offsetTop;
+
+function myFunction() {
+  if (window.pageYOffset >= sticky) {
+    navbar.classList.add("sticky")
+  } else {
+    navbar.classList.remove("sticky");
+  }
+}
+
+function showGlow(){
+  let inputFiled = document.getElementById('showTitle');
+  inputFiled.style.boxShadow = " 0  0 10px cyan";
+}
+function hideGlow(){
+  let inputFiled = document.getElementById('showTitle');
+  inputFiled.style.boxShadow = " 0  0 10px black";
 }
