@@ -6,6 +6,7 @@ const requestAPI = require("request");
 const app = express();
 const port = 3000;
 const APIEndpoint = 'http://api.tvmaze.com/';
+const scrapeTrending = require('./scrapper');
 
 app.use(express.static("public"));
 app.use(bodyParser.json());
@@ -36,6 +37,7 @@ app.post("/searchQuery", (request, response) => {
   //Finish off the interaction.
   let data;
   response.send({ message: "Data received." });
+  // response.redirect(307, '/shows');
 });
 app.post("/shows", (request, response) => {
   //Output the data sent to the server
@@ -60,5 +62,36 @@ app.get("/shows", function (req, res) {
   console.log(req.body);
   res.send(showInfo);
 });
+
+(async function getTrendingShows(){ 
+  const showsArr = await scrapeTrending();
+  showsArr.forEach(element => {
+    requestAPI(
+      `${APIEndpoint}/singlesearch/shows?q=${element}`,
+      function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+          data = JSON.parse(body);
+          // console.log(JSON.parse(body));
+        }
+        console.log(data.id,
+          data.name,
+          data.genres,
+          data.rating.average,
+          data.image.medium,
+          data.premiered);
+      }
+    );
+    
+
+  });
+})();
+// const ress = await scrapeTrending().then(function(results){
+//   return results
+// }
+// const ress = scrapeTrending()
+// .then(function(result) {
+//   console.log(result)
+//   // return result;
+// })
 
 app.listen(port);
