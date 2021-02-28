@@ -56,7 +56,7 @@ function deleteCurrentData(){
 /* Returns a promise to get employees. */
 async function getEmployees() {
   //Build query
-  let sql = "SELECT * FROM TVShows";
+  let sql = "SELECT * FROM Trending";
   //Wrap the execution of the query in a promise
   return new Promise((resolve, reject) => {
     connectionPool.query(sql, (err, result) => {
