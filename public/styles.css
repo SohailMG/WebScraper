@@ -1,132 +1,149 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    margin: 0;
-  }
-  html {
-    scroll-behavior: smooth;
-  }
-  
-  #section1 {
-    height: 800px;
-    background-image: url(./images/bg.jpg);
-    background-size:cover;
-  }
-  #section2 {
-    height: 900px;
-    background-image: url(./images/power\ \(1\).jpg);
-    background-size:cover;
-  }
-  #section3 {
-    height: 800px;
-    background-color: rgb(78, 78, 78);
-  }
-  #section4 {
-    height: 800px;
-    background-image: url(./images/avengers\ \(1\).jpg);
-    background-size:cover;
-  }
-  .sticky {
-    position: fixed;
-    top: 0;
-    width: 100%;
-  }
-  
-  .sticky + .content {
-    padding-top: 60px;
-  }
-  .navbar a {
-    float: left;
-    font-size: 16px;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-  
-  .dropdown {
-    float: left;
-    overflow: hidden;
-  }
-  
-  .dropdown .dropbtn {
-    font-size: 16px;  
-    border: none;
-    outline: none;
-    color: goldenrod;
-    padding: 14px 16px;
-    background-color: inherit;
-    font-family: inherit;
-    margin: 0;
-  }
-  
-  .nav {
-      background-color: rgba(128, 128, 128, 0.541);
-  }
-  .navbar a:hover, .dropdown:hover .dropbtn {
-    background-color: grey;
-  }
-  
-  .dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
-  }
-  
-  .dropdown-content a {
-    float: none;
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: left;
-  }
-  
-  .dropdown-content a:hover {
-    background-color: #ddd;
-  }
-  
-  .dropdown:hover .dropdown-content {
-    display: block;
-  }
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+html {
+  scroll-behavior: smooth;
+}
 
-  /* section 2 */
+#section1 {
+  height: 800px;
+  background-image: url(./images/bg.jpg);
+  background-size: cover;
+}
+#section2 {
+  height: 900px;
+  background-image: radial-gradient(
+    circle farthest-corner at 5.6% 54.5%,
+    rgba(47, 71, 79, 1) 0%,
+    rgba(159, 188, 198, 1) 83.6%
+  );
+  background-size: cover;
+}
+#section3 {
+  height: 800px;
+  background-color: rgb(78, 78, 78);
+}
+#section4 {
+  height: 800px;
+  background-image: url(./images/avengers\\(1\).jpg);
+  background-size: cover;
+}
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.sticky + .content {
+  padding-top: 60px;
+}
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: goldenrod;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.nav {
+  background-color: rgba(128, 128, 128, 0.541);
+}
+.navbar a:hover,
+.dropdown:hover .dropbtn {
+  background-color: grey;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* section 2 */
+#section2 > h1 {
+  text-align: center;
+  margin: 0;
+  position: absolute;
+   margin-top: 5%;
+  margin-left: 39%;
+  font-family: monospace;
+  color: cornsilk;
+  text-shadow: 0 10px 10px black;
+  border-bottom: 1px solid black;
+  
+  height: 43px;
+}
 input#showTitle {
-    margin-top: 7%;
-    margin-left: 38%;
-    width: 300px;
-    height: 30px;
-    border: none;
-    box-shadow: 0 0 10px black;
+  margin-top: 7%;
+  margin-left: 38%;
+  width: 300px;
+  height: 30px;
+  border: none;
+  box-shadow: 0 0 10px black;
 }
-#submit-title{
-    height: 35px;
-    background-color: burlywood;
-    border: none;
-    box-shadow: 0 0 10px black;
-    color: darkred;
+#submit-title {
+  height: 35px;
+  background-color: burlywood;
+  border: none;
+  box-shadow: 0 0 10px black;
+  color: darkred;
 }
-.grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr ;
-    margin-left: 100px;
-    margin-top: 100px;
-    gap: 20px;
-  }
-  .grid-item {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    background-color: rgba(255, 255, 255, 0.8);
-    font-size: 30px;
-    text-align: left;
-    width: 315px;
-
-  }
-  .grid-item > img{
-      height: 180px;
-  }
-  #show-info >  p{
-      font-size: 12px;
-  }
+.grid-container  {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-left: 100px;
+  padding-top: 12%;
+  gap: 20px;
+}
+.grid-item {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background-color: rgba(255, 255, 255, 0.8);
+  font-size: 30px;
+  text-align: left;
+  width: 315px;
+}
+.grid-item > img {
+  height: 180px;
+}
+#show-info > p {
+  font-size: 12px;
+}

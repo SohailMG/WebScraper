@@ -32,11 +32,6 @@ function showInfo() {
         </div>
         </div>`;
         gridContainer.innerHTML += gridItem;
-        // let p = `<p>Name: ${element.name}</p>
-        // <p>Genres: ${element.genres}</p>
-        // <p>Ratings: ${element.ratings}</p>
-        // <img src="${element.image}" alt="">`;
-        // document.getElementsByTagName("")[0].innerHTML += p;
       });
     }
   };

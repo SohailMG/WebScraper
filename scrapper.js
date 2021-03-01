@@ -16,7 +16,7 @@ async function getTrending() {
           elms.push(element);       
       }
 
-    return  elms.slice(0,5);
+    return  elms.slice(0,6);
 
     }).then(token => { return token } )
     browser.close();

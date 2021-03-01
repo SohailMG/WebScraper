@@ -78,7 +78,7 @@ app.get("/shows", function (req, res) {
           data = JSON.parse(body);
           // console.log(JSON.parse(body));
         }
-        
+
         db.storeTrendings(data.id,
           data.name,
           data.genres,
