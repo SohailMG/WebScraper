@@ -15,27 +15,26 @@ app.use(bodyParser.json());
 let showInfo = [];
 
 //Handle POST requests sent to the root of the URL
-app.post("/searchQuery", (request, response) => {
+app.post("/shows", (request, response) => {
   //Output the data sent to the server
-  let searchQuery = request.body.URL;
-  // console.log(searchQuery);
-  requestAPI(
-    `${APIEndpoint}/singlesearch/shows?q=${searchQuery}`,
-    function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-        data = JSON.parse(body);
-        // console.log(JSON.parse(body));
-      }
-      db.storeNewShow(data.id,
-        data.name,
-        data.genres,
-        data.rating.average,
-        data.image.medium,
-        data.premiered);
-    }
-  );
+  let show = request.body.Show;
+  // requestAPI(
+  //   `${APIEndpoint}/singlesearch/shows?q=${searchQuery}`,
+  //   function (error, response, body) {
+  //     if (!error && response.statusCode == 200) {
+  //       data = JSON.parse(body);
+  //       // console.log(JSON.parse(body));
+  //     }
+      db.storeNewShow(
+        show.name,
+        show.Genres,
+        show.Rating,
+        show.image,
+        show.Premiered);
+    // }
+  // );
   //Finish off the interaction.
-  let data;
+  // let data;
   response.send({ message: "Data received." });
   // response.redirect(307, '/shows');
 });
@@ -93,14 +92,35 @@ app.get("/shows", (request, response) => {
 
 });
 
+app.post('/search', getSearches);
+function getSearches(req,res){
+  const MAX_SEARCHES = 5;
+  let searchQuery = req.body.Title;
+  let showD = []
+  requestAPI(
+    `${APIEndpoint}/search/shows?q=${searchQuery}`,
+    function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        data = JSON.parse(body);
+        for (let i = 0; i  < MAX_SEARCHES; i++) {
+          if(data[i].show.image != null){
 
-// const ress = await scrapeTrending().then(function(results){
-//   return results
-// }
-// const ress = scrapeTrending()
-// .then(function(result) {
-//   console.log(result)
-//   // return result;
-// })
+            let shows = {
+              name:    data[i].show.name,
+              genres:  data[i].show.genres,
+              ratings: data[i].show.rating.average,
+              premiered: data[i].show.premiered,
+              image:   data[i].show.image.medium
+            }
+            showD.push(shows);
+          }else{
+
+          }
+          
+        }
+        res.send(showD);
+      }
+
+    })};
 
 app.listen(port);

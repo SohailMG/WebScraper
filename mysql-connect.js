@@ -15,7 +15,7 @@ let connectionPool = mysql.createPool({
 
 //Build query
 
-function storeNewShow(id, name, genres, ratings, image, premiered) {
+function storeNewShow( name, genres, ratings, image, premiered) {
   let sql = `INSERT INTO TVShows (id, name, genres, ratings, premiered,image)        
   VALUES (default, '${name}', '${genres}', '${ratings}', '${premiered}', '${image}')`;
 
