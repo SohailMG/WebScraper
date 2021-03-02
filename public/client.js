@@ -12,14 +12,14 @@ function submitLink() {
   console.log(queryStr);
   xhttp.open("POST", "/searchQuery", true);
   xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.send(JSON.stringify({ URL: queryStr }));
+  xhttp.send(JSON.stringify({ Title: queryStr }));
 }
 function showInfo() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       let showInfo = JSON.parse(xhttp.responseText);
-      showInfo[0].forEach((element) => {
+      showInfo.forEach((element) => {
         let gridContainer = document.getElementsByClassName(
           "grid-container"
         )[0];
@@ -61,4 +61,19 @@ function showGlow() {
 function hideGlow() {
   let inputFiled = document.getElementById("showTitle");
   inputFiled.style.boxShadow = " 0  0 10px black";
+}
+
+async function getTrends(){
+
+  
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      let showInfo = JSON.parse(xhttp.responseText);
+      console.log(showInfo)
+    }
+  };
+  xhttp.open("GET", "/home", true);
+  xhttp.send();
+
 }
