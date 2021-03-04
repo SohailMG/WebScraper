@@ -107,6 +107,8 @@ for (let i = 0; i < shareBtns.length; i++) {
   addToCart_btn.addEventListener("click", submitShow);
 }
 function submitShow(event) {
+  let reviewBox = document.getElementsByClassName("review-container")[0];
+  let modal = document.getElementById("review-modal");
   let btn = event.target;
   let showInfo = btn.parentElement;
 
@@ -128,10 +130,41 @@ function submitShow(event) {
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       console.log(xhttp.responseText);
-      location.href="#section4"
+      reviewBox.style.display="block";
+      modal.style.display = "block";
+      
     }
   };
     xhttp.open("POST", "/shows", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send(JSON.stringify({ Show: show }));
+}
+
+
+function submitReview(){
+    let reviewBox = document.getElementsByClassName("review-container")[0];
+    var modal = document.getElementById("review-modal");
+    reviewBox.style.display="none";
+    modal.style.display = "none";
+    location.href="#section4";
+  
+}
+
+
+
+// Get the modal
+var modal = document.getElementById("review-modal");
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
 }

@@ -8,11 +8,11 @@
     <title>Document</title>
   </head>
   <body>
-    <!-- nav bat  -->
+    <!-- nav bar -->
     <div class="navbar nav">
       <a href="#section1">
-        <img src="./images/Home.png" alt="Home">
-       </a>
+        <img src="./images/Home.png" alt="Home" />
+      </a>
       <a href="#section2">Trending</a>
       <div class="dropdown">
         <button class="dropbtn">
@@ -21,7 +21,7 @@
         </button>
         <div class="dropdown-content">
           <a href="#section3">TVShow</a>
-          <a href="#section4">Actor</a>
+          <a href="#section4">Reviews</a>
         </div>
       </div>
     </div>
@@ -32,22 +32,40 @@
     <!-- trenidng section -->
     <div class="main" id="section2">
       <h1>Currently Trending</h1>
-      <div class="grid-container">
-        
-      </div>
+      <div class="grid-container"></div>
     </div>
     <!-- section 3 -->
     <div class="main" id="section3">
-      <input
-      id="showTitle"
-      type="text"
-      onfocusin="showGlow()"
-      onfocusout="hideGlow()"
-    />
-    <button id="submit-title" onclick="submitLink()">submit</button>
-    <div class="searches-container">
+      <input id="showTitle" type="text" onfocusin="showGlow()"
+      onfocusout="hideGlow()" oninput="submitLink()">
+      <button id="submit-title" onclick="submitLink()">Search</button>
+      <div id="review-modal" class="modal">
         
-    </div>
+          
+          <div class="review-container">
+            <span class="close">&times;</span>
+            <h1>Review Show</h1>
+            <label for="show">SHOW</label>
+            <input type="text" class="reviewed-show-name" name="show"/>
+            <label for="username">USER</label>
+            <input type="text" class="username" name="usernme" />
+            <textarea
+              placeholder="Write Review..."
+              name="review"
+              id=""
+              cols="55"
+              rows="8"
+              class="review-box"
+            ></textarea>
+            <button class="submit-review" onclick="submitReview()">
+              Submit
+            </button>
+          
+          </div>
+        </div>
+      <div class="searches-container">
+        <h1>Search For Shows by titles</h1>
+      </div>
     </div>
     <div class="main" id="section4"></div>
 

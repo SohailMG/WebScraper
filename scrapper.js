@@ -2,12 +2,21 @@ const puppeteer = require("puppeteer");
 
 let url = "https://reelgood.com/curated/trending-picks/on-netflix";
 
+
+
+/**
+ * scrapes a web page for titles tredning tv shows
+ * @returns an array of  five show titles
+ */
 async function getTrending() {
 
+  // creating browser instance 
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
-  await page.goto("https://reelgood.com/curated/trending-picks/on-netflix");
+  // navigating to web page
+  await page.goto("https://reelgood.com/curated/trending-picks");
 
+  // evaluating html of page then selecting all title tags
   const trending = await page.evaluate(() => {
       let arr = document.querySelectorAll('.css-1u7zfla  > a');
       let elms = [];
@@ -18,7 +27,7 @@ async function getTrending() {
 
     return  elms.slice(0,6);
 
-    }).then(token => { return token } )
+    }).then(titles => { return titles } )
     browser.close();
     return trending;
     // return data;
