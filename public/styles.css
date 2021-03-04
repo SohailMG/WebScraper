@@ -215,12 +215,12 @@ input#showTitle {
   margin-top: 4%;
   margin-left: 34%;
   border-radius: 10px;
-	background: #495C70;
-	padding: 30px 30px 15px 30px;
-	border: 5px solid #53687E;
+  background: #495c70;
+  padding: 30px 30px 15px 30px;
+  border: 5px solid #53687e;
   font-family: Georgia, "Times New Roman", Times, serif;
-	font-size: 16px;
-	color: #fff;
+  font-size: 16px;
+  color: #fff;
 }
 
 .review-container > h1 {
@@ -229,15 +229,15 @@ input#showTitle {
   color: cadetblue;
 }
 .reviewed-show-name {
-     width: 267px;
-     margin-left: 10px;
-     background: transparent;
-     border: none;
-     border-bottom: 1px dashed #83A4C5;
-     width: 355px;
-     outline: none;
-     padding: 0px 0px 0px 0px;
-     font-style: italic;
+  width: 267px;
+  margin-left: 10px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed #83a4c5;
+  width: 355px;
+  outline: none;
+  padding: 0px 0px 0px 0px;
+  font-style: italic;
 }
 .review-box {
   margin-top: 30px;
@@ -247,18 +247,17 @@ input#showTitle {
 }
 .username {
   width: 267px;
-     margin-left: 10px;
-     background: transparent;
-     border: none;
-     border-bottom: 1px dashed #83A4C5;
-     width: 355px;
-     outline: none;
-     padding: 0px 0px 0px 0px;
-     font-style: italic;
-     height: 30px;
-     margin-top: 18px;
+  margin-left: 10px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed #83a4c5;
+  width: 355px;
+  outline: none;
+  padding: 0px 0px 0px 0px;
+  font-style: italic;
+  height: 30px;
+  margin-top: 18px;
 }
-
 
 /* The Modal (background) */
 .modal {
@@ -271,8 +270,8 @@ input#showTitle {
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
 
 /* Modal Content */
@@ -298,25 +297,79 @@ input#showTitle {
   text-decoration: none;
   cursor: pointer;
 }
-.submit-review{
+.submit-review {
   background: darkcyan;
   border: none;
   padding: 8px 10px 8px 10px;
   border-radius: 5px;
-  color: #A8BACE;
+  color: #a8bace;
   margin-left: 43%;
   margin-top: 28px;
   color: white;
-  
 }
-.submit-review:hover{
-  background: #394D61;
-  
+.submit-review:hover {
+  background: #394d61;
 }
-.review-container > label{
+.review-container > label {
   margin-left: 14px;
   font-family: Georgia, "Times New Roman", Times, serif;
-	font-size: 16px;
-	color: #fff;
+  font-size: 16px;
+  color: #fff;
 }
 
+.register-btns {
+  display: flex;
+  margin-left: 80%;
+  margin-top: 13px;
+  gap: 21px;
+}
+.register-btns > button {
+  background: darkcyan;
+  border: none;
+  padding: 8px 10px 8px 10px;
+  border-radius: 5px;
+  color: #a8bace;
+  color: white;
+}
+.register-btns > button:hover{
+  background: #394d61;
+}
+.register-forms{
+  margin-left: 25%;
+  padding-top: 25px;
+  color: cadetblue;
+  width: 526px;
+  background-color: darkslategrey;
+  padding: 36px;
+}
+.register-forms > label{
+  margin-left: 14px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 16px;
+  color: #fff;
+}
+.register-forms > input{
+  width: 267px;
+  margin-left: 10px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed #83a4c5;
+  width: 355px;
+  outline: none;
+  padding: 0px 0px 0px 0px;
+  font-style: italic;
+  height: 30px;
+  margin-top: 18px;
+}
+.clearfix {
+  margin-top: 38px;
+  margin-left: 34%;
+}
+.clearfix > button {
+  background: darkcyan;
+  border: none;
+  padding: 8px 10px 8px 10px;
+  border-radius: 5px;
+  color: #a8bace;
+  color: white;
+}

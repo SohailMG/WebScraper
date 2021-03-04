@@ -9,25 +9,135 @@
   </head>
   <body>
     <!-- nav bar -->
-    <div class="navbar nav">
+    <div class="navbar nav sticky">
       <a href="#section1">
         <img src="./images/Home.png" alt="Home" />
       </a>
       <a href="#section2">Trending</a>
-      <div class="dropdown">
-        <button class="dropbtn">
-          Share
-          <i class="fa fa-caret-down"></i>
+      <a href="#section3">TVShow</a>
+      <a href="#section4">Reviews</a>
+      <div class="register-btns">
+        <button
+          class="signup-btn"
+          onclick="document.getElementById('signup-form').style.display='block'"
+        >
+          Sign Up
         </button>
-        <div class="dropdown-content">
-          <a href="#section3">TVShow</a>
-          <a href="#section4">Reviews</a>
+        <div id="signup-form" class="modal">
+          <span
+            onclick="document.getElementById('signup-form').style.display='none'"
+            class="close"
+            title="Close Modal"
+            >&times;</span
+          >
+          <form class="register-forms">
+              <h1>Sign Up</h1>
+              <p>Please fill in this form to create an account.</p>
+              <hr />
+              <label for="email"><b>Email</b></label>
+              <input
+                type="text"
+                placeholder="Enter Email"
+                name="email"
+                required
+              />
+
+              <label for="psw"><b>Username</b></label>
+              <input
+                type="password"
+                placeholder="Enter Password"
+                name="psw"
+                required
+              />
+
+              <label for="psw-repeat"><b>Password</b></label>
+              <input
+                type="password"
+                placeholder="Repeat Password"
+                name="psw-repeat"
+                required
+              />
+
+
+              <div class="clearfix">
+                <button
+                  type="button"
+                  onclick="document.getElementById('signup-form').style.display='none'"
+                  class="cancelbtn"
+                >
+                  Cancel
+                </button>
+                <button type="submit" class="signupbtn">Sign Up</button>
+              </div>
+          </form>
         </div>
+        <button class="login-btn">Sing In</button>
       </div>
     </div>
 
     <!-- section 1  -->
-    <div class="main" id="section1"></div>
+    <div class="main" id="section1">
+      <!--  -->
+      <div id="signup-form" class="modal">
+        <span
+          onclick="document.getElementById('signup-form').style.display='none'"
+          class="close"
+          title="Close Modal"
+          >&times;</span
+        >
+        <form class="modal-content" action="/action_page.php">
+          <div class="container">
+            <h1>Sign Up</h1>
+            <p>Please fill in this form to create an account.</p>
+            <hr />
+            <label for="email"><b>Email</b></label>
+            <input
+              type="text"
+              placeholder="Enter Email"
+              name="email"
+              required
+            />
+
+            <label for="psw"><b>Password</b></label>
+            <input
+              type="password"
+              placeholder="Enter Password"
+              name="psw"
+              required
+            />
+
+            <label for="psw-repeat"><b>Repeat Password</b></label>
+            <input
+              type="password"
+              placeholder="Repeat Password"
+              name="psw-repeat"
+              required
+            />
+
+            <label>
+              <input
+                type="checkbox"
+                checked="checked"
+                name="remember"
+                style="margin-bottom: 15px"
+              />
+              Remember me
+            </label>
+
+            <div class="clearfix">
+              <button
+                type="button"
+                onclick="document.getElementById('signup-form').style.display='none'"
+                class="cancelbtn"
+              >
+                Cancel
+              </button>
+              <button type="submit" class="signupbtn">Sign Up</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
 
     <!-- trenidng section -->
     <div class="main" id="section2">
@@ -36,33 +146,33 @@
     </div>
     <!-- section 3 -->
     <div class="main" id="section3">
-      <input id="showTitle" type="text" onfocusin="showGlow()"
-      onfocusout="hideGlow()" oninput="submitLink()">
+      <input
+        id="showTitle"
+        type="text"
+        onfocusin="showGlow()"
+        onfocusout="hideGlow()"
+        oninput="submitLink()"
+      />
       <button id="submit-title" onclick="submitLink()">Search</button>
       <div id="review-modal" class="modal">
-        
-          
-          <div class="review-container">
-            <span class="close">&times;</span>
-            <h1>Review Show</h1>
-            <label for="show">SHOW</label>
-            <input type="text" class="reviewed-show-name" name="show"/>
-            <label for="username">USER</label>
-            <input type="text" class="username" name="usernme" />
-            <textarea
-              placeholder="Write Review..."
-              name="review"
-              id=""
-              cols="55"
-              rows="8"
-              class="review-box"
-            ></textarea>
-            <button class="submit-review" onclick="submitReview()">
-              Submit
-            </button>
-          
-          </div>
+        <div class="review-container">
+          <span class="close">&times;</span>
+          <h1>Review Show</h1>
+          <label for="show">SHOW</label>
+          <input type="text" class="reviewed-show-name" name="show" />
+          <label for="username">USER</label>
+          <input type="text" class="username" name="usernme" />
+          <textarea
+            placeholder="Write Review..."
+            name="review"
+            id=""
+            cols="55"
+            rows="8"
+            class="review-box"
+          ></textarea>
+          <button class="submit-review" onclick="submitReview()">Submit</button>
         </div>
+      </div>
       <div class="searches-container">
         <h1>Search For Shows by titles</h1>
       </div>
