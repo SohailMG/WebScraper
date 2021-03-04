@@ -13,20 +13,18 @@ html {
 }
 #section2 {
   height: 900px;
-  background-image: radial-gradient(
-    circle farthest-corner at 5.6% 54.5%,
-    rgba(47, 71, 79, 1) 0%,
-    rgba(159, 188, 198, 1) 83.6%
-  );
+  /* background-image: url(./images/section2.jpg); */
+  background-color: darkslategray;
   background-size: cover;
 }
 #section3 {
   height: 800px;
-  background-color: rgb(78, 78, 78);
+  background-color: darkslategray;
 }
 #section4 {
   height: 800px;
-  background-image: url(./images/avengers\\(1\));
+  /* background-image: url(./images/power.jpg); */
+  background-color: darkslategray;
   background-size: cover;
 }
 .sticky {
@@ -64,12 +62,13 @@ html {
 }
 
 .nav {
-  background-color: rgba(128, 128, 128, 0.541);
+  background-color: darkslategrey;
 }
 .navbar a:hover,
 .dropdown:hover .dropbtn {
-  background-color: grey;
+  color: yellow;
 }
+
 
 .dropdown-content {
   display: none;
@@ -134,10 +133,12 @@ input#showTitle {
   padding-top: 12%;
   gap: 20px;
 }
+
 .grid-item {
+  box-shadow: 0 0 10px turquoise;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: cornsilk;
   font-size: 30px;
   text-align: left;
   width: 315px;
