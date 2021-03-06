@@ -29,7 +29,7 @@ app.post("/shows", (request, response) => {
 
   response.send({ message: "Show added" });
 });
-app.post("/user", (request, response) => {
+app.post("/register", (request, response) => {
   //stores show data into database
   let user = request.body.userInfo;
   db.storeNewUser(
@@ -40,6 +40,35 @@ app.post("/user", (request, response) => {
 
 
   response.send({ message: "user added" });
+});
+app.post("/login", (request, response) => {
+  //stores show data into database
+  let user = request.body.userInfo;
+
+  response.send({ message: "found match" });
+});
+app.post("/review", async (request, response) => {
+  //stores show data into database
+  let review = request.body.reviews;
+  let showName = review.show;
+  let userEmail = review.user;
+  let description = review.description;
+  
+
+  let userInfo = await db.getUserInfo(userEmail);
+  let showInfo = await db.getShowInfo(showName)
+  const storedShowName = showInfo[0].name;
+  const storedUserEmail = userInfo[0].name;
+  const show_id = showInfo[0].show_id;
+  const user_id = userInfo[0].user_id;
+
+  if (storedUserEmail == userEmail && storedShowName == showName) {
+
+    db.storeUserReview(show_id,user_id,description);
+    
+  }
+
+  response.send({ message: "Review Added" });
 });
 
 /**
@@ -88,6 +117,7 @@ app.get("/shows", (request, response) => {
       console.error(JSON.stringify(err));
     });
 });
+
 
 
 app.post("/search", getSearches);
