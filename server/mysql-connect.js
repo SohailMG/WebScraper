@@ -54,7 +54,7 @@ function deleteCurrentData() {
 /* Outputs all of the employees */
 
 /* Returns a promise to get employees. */
-async function getEmployees() {
+async function getAllShows() {
   //Build query
   let sql = "SELECT * FROM Trending";
   //Wrap the execution of the query in a promise
@@ -86,7 +86,7 @@ function storeNewUser(name, email, password) {
 }
 
 async function getUserInfo(username) {
-  let sql = `SELECT * FROM Users WHERE name='${username}'`;
+  let sql = `SELECT * FROM Users WHERE email='${username}'`;
   //Wrap the execution of the query in a promise
   return new Promise((resolve, reject) => {
     connectionPool.query(sql, (err, result) => {
@@ -117,9 +117,9 @@ async function getShowInfo(showName) {
   });
 }
 
-function storeUserReview(show_id, user_id,description) {
-  let sql = `INSERT INTO Reviews (review_id,show_id, user_id, description)        
-  VALUES (default, '${show_id}', '${user_id}', '${description}')`;
+function storeUserReview(show_id, user_id,rating,review) {
+  let sql = `INSERT INTO Reviews (review_id,show_id, user_id, rating,review)        
+  VALUES (default, '${show_id}', '${user_id}','${rating}','${review}')`;
 
   connectionPool.query(sql, (err, result) => {
     if (err) {
@@ -132,10 +132,12 @@ function storeUserReview(show_id, user_id,description) {
 }
 
 
+
+
 module.exports = {
   storeNewUser,
   storeNewShow,
-  getEmployees,
+  getAllShows,
   storeTrendings,
   deleteCurrentData,
   getUserInfo,
