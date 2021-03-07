@@ -19,7 +19,7 @@ function submitLink() {
         <p><b>Ratings:</b>${element.ratings}</p>
         <p><b>Genres:</b>${element.genres}</p>
         <p><b>Premiered:</b>${element.premiered}</p>
-        <button class="share-btn">Share</button> 
+        <button class="share-btn">Add Review</button> 
         </div>
         </div>`;
         gridContainer.innerHTML += gridItem;
@@ -123,34 +123,55 @@ function submitShow(event) {
     Rating: strRating.replace("Ratings:", ""),
     Genres: strGenres.replace("Genres:", ""),
     Premiered: strPremiered.replace("Premiered:", ""),
-    image: imageLink.src
+    image: imageLink.src,
   };
-  console.log(show)
+  let showName = document.getElementsByClassName("reviewed-show-name")[0];
+  let reviewee = document.getElementsByClassName("username")[0];
+
+  (showName.value = strname.replace("Name:", "")), (reviewee.value = sessionStorage.getItem('loggedInEmail'));
+  console.log(show);
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       console.log(xhttp.responseText);
-      reviewBox.style.display="block";
+      reviewBox.style.display = "block";
       modal.style.display = "block";
-      
     }
   };
-    xhttp.open("POST", "/shows", true);
-    xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.send(JSON.stringify({ Show: show }));
+  xhttp.open("POST", "/shows", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(JSON.stringify({ Show: show }));
 }
 
+let customerRating ;
+function submitReview() {
+  let reviewContainer = document.getElementsByClassName("review-container")[0];
+  let showName = document.getElementsByClassName("reviewed-show-name")[0];
+  let reviewee = document.getElementsByClassName("username")[0];
+  let reviewBox = document.getElementsByClassName("review-box")[0];
 
-function submitReview(){
-    let reviewBox = document.getElementsByClassName("review-container")[0];
-    var modal = document.getElementById("review-modal");
-    reviewBox.style.display="none";
-    modal.style.display = "none";
-    location.href="#section4";
-  
+  let review = {
+    show: showName.value.replace("Name:", ""),
+    user: reviewee.value,
+    rating:customerRating,
+    content: reviewBox.value
+  };
+
+  let xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      console.log(xhttp.responseText);
+      var modal = document.getElementById("review-modal");
+      reviewContainer.style.display = "none";
+      modal.style.display = "none";
+      location.href = "#section4";
+      console.log(review);
+    }
+  };
+  xhttp.open("POST", "/review", true);
+  xhttp.setRequestHeader("Content-type", "application/json");
+  xhttp.send(JSON.stringify({ reviews: review }));
 }
-
-
 
 // Get the modal
 var modal = document.getElementById("review-modal");
@@ -159,12 +180,29 @@ var btn = document.getElementById("myBtn");
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 // When the user clicks on <span> (x), close the modal
-span.onclick = function() {
+span.onclick = function () {
   modal.style.display = "none";
-}
+};
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
+window.onclick = function (event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
-}
+};
+
+const container = document.querySelector(".rating");
+const items = container.querySelectorAll(".rating-item");
+container.onclick = (e) => {
+  const elClass = e.target.classList;
+  // change the rating if the user clicks on a different star
+  if (!elClass.contains("active")) {
+    items.forEach(
+      // reset the active class on the star
+      (item) => item.classList.remove("active")
+    );
+    console.log(e.target.getAttribute("data-rate"));
+    customerRating = e.target.getAttribute("data-rate");
+    elClass.add("active"); // add active class to the clicked star
+  }
+};
+

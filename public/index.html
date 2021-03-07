@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
     <link rel="stylesheet" href="styles.css" />
     <title>Document</title>
   </head>
@@ -23,32 +24,36 @@
         >
           Sign Up
         </button>
+        <!-- SIGN UP FORM TEMPLATE -->
         <div id="signup-form" class="modal">
-          <form class="register-forms">
+          <div class="register-forms">
             <h1>Sign Up</h1>
-            <p>Please fill in this form to create an account.</p>
+            <p id="form-info">Please fill in this form to create an account.</p>
             <hr />
             <label for="email"><b>Email</b></label>
             <input
               type="text"
               placeholder="Enter Email"
               name="email"
+              id="user-email"
               required
             />
 
             <label for="psw"><b>Username</b></label>
             <input
-              type="password"
-              placeholder="Enter Password"
+              type="text"
+              placeholder="Enter Username"
               name="psw"
+              id="user-name"
               required
             />
 
             <label for="psw-repeat"><b>Password</b></label>
             <input
               type="password"
-              placeholder="Repeat Password"
+              placeholder="Enter Password"
               name="psw-repeat"
+              id="user-pass"
               required
             />
 
@@ -60,21 +65,23 @@
               >
                 Cancel
               </button>
-              <button type="submit" class="signupbtn">Sign Up</button>
+              <button type="submit" class="signupbtn" onclick="sendUserData()">Sign Up</button>
             </div>
-          </form>
+          </div>
         </div>
         <!-- sing in form -->
         <button class="login-btn"onclick="document.getElementById('signin-form').style.display='block'">Sing In</button>
         <div id="signin-form" class="modal">
-          <form class="register-forms">
-            <h1>Sign In</h1>         
+          <div class="register-forms">
+            <h1>Sign In</h1>  
+            <p id="login-info"></p>       
             <hr />
             <label for="email"><b>Email</b></label>
             <input
               type="text"
               placeholder="Enter Email"
               name="email"
+              id="login-email"
               required
             />
             <label for="psw-repeat"><b>Password</b></label>
@@ -82,9 +89,10 @@
               type="password"
               placeholder="Repeat Password"
               name="psw-repeat"
+              id="login-pass"
               required
             />
-
+            
             <div class="clearfix">
               <button
                 type="button"
@@ -93,9 +101,9 @@
               >
                 Cancel
               </button>
-              <button type="submit" class="signupbtn">Sign In</button>
+              <button  class="signupbtn" onclick="sendLoginData()">Sign In</button>
             </div>
-          </form>
+          </div>
         </div>
 
 
@@ -119,7 +127,7 @@
         <form class="modal-content" action="/action_page.php">
           <div class="container">
             <h1>Sign Up</h1>
-            <p>Please fill in this form to create an account.</p>
+            <p id="form-info">Please fill in this form to create an account.</p>
             <hr />
             <label for="email"><b>Email</b></label>
             <input
@@ -192,7 +200,15 @@
           <label for="show">SHOW</label>
           <input type="text" class="reviewed-show-name" name="show" />
           <label for="username">USER</label>
+          
           <input type="text" class="username" name="usernme" />
+          <ul class="rating" >
+            <li class="rating-item" data-rate="1"></li>
+            <li class="rating-item active" data-rate="2"></li>
+            <li class="rating-item" data-rate="3"></li>
+            <li class="rating-item" data-rate="4"></li>
+            <li class="rating-item" data-rate="5"></li>
+            </ul>
           <textarea
             placeholder="Write Review..."
             name="review"
@@ -208,8 +224,32 @@
         <h1>Search For Shows by titles</h1>
       </div>
     </div>
-    <div class="main" id="section4"></div>
+    <div class="main" id="section4">
+      <h1>Movie Reviews</h1>
+      <div class="reviews-grid">
+        <div class="reviewed-box">
+          <p><b style="color: brown;">Submited by :</b> John Smith </p>
+          <img src="./images/placeH.jpeg" alt="">
+          <p><b style="color: brown;">Rating :</b> 4.7</p>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam neque accusantium ducimus necessitatibus voluptatibus quidem, ex tenetur illo accusamus autem veniam debitis ea ipsa laboriosam?</p>
+        </div>
+      </div>
+    </div>
+    <!-- footer design  -->
+    <div class="footer-basic">
+      <footer>
+          <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>
+          <ul class="list-inline">
+              <li class="list-inline-item"><a href="#section1">Home</a></li>
+              <li class="list-inline-item"><a href="#section2">Treding</a></li>
+              <li class="list-inline-item"><a href="#section3">TVShows</a></li>
+              <li class="list-inline-item"><a href="#section4">Reviews</a></li>
+          </ul>
+          <p class="copyright">Show Reviewer © 2021</p>
+      </footer>
+  </div>
 
     <script src="client.js"></script>
+    <script src="client-register.js"></script>
   </body>
 </html>
