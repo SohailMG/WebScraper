@@ -15,18 +15,33 @@ let connectionPool = mysql.createPool({
 
 //Build query
 
-function storeNewShow(name, genres, ratings, image, premiered) {
-  let sql = `INSERT INTO TVShows (show_id, name, genres, ratings, premiered,image)        
-  VALUES (default, '${name}', '${genres}', '${ratings}', '${premiered}', '${image}')`;
+async function storeNewShow(name, genres, ratings, image, premiered) {
+  let shows = await getAllShows();
+  // console.log(shows);
 
-  connectionPool.query(sql, (err, result) => {
-    if (err) {
-      //Check for errors
-      console.error(`Error executing query: ${JSON.stringify(err)}`);
+  let isDublicate;
+  shows.forEach((show) => {
+    if (show.name == name) {
+      // console.log("Already Stored");
+      isDublicate = true;
     } else {
-      console.log(JSON.stringify(result));
+      isDublicate = false;
     }
   });
+  console.log(isDublicate)
+  if (!isDublicate) {
+    let sql = `INSERT INTO TVShows (show_id, name, genres, ratings, premiered,image)        
+    VALUES (default, '${name}', '${genres}', '${ratings}', '${premiered}', '${image}')`;
+
+    connectionPool.query(sql, (err, result) => {
+      if (err) {
+        //Check for errors
+        console.error(`Error executing query: ${JSON.stringify(err)}`);
+      } else {
+        console.log(JSON.stringify(result));
+      }
+    });
+  }
 }
 
 function storeTrendings(id, name, genres, ratings, image, premiered) {
@@ -54,9 +69,25 @@ function deleteCurrentData() {
 /* Outputs all of the employees */
 
 /* Returns a promise to get employees. */
-async function getAllShows() {
+async function getAllTrending() {
   //Build query
   let sql = "SELECT * FROM Trending";
+  //Wrap the execution of the query in a promise
+  return new Promise((resolve, reject) => {
+    connectionPool.query(sql, (err, result) => {
+      if (err) {
+        //Check for errors
+        reject("Error executing query: " + JSON.stringify(err));
+      } else {
+        //Resolve promise with results
+        resolve(result);
+      }
+    });
+  });
+}
+async function getAllShows() {
+  //Build query
+  let sql = "SELECT * FROM TVShows";
   //Wrap the execution of the query in a promise
   return new Promise((resolve, reject) => {
     connectionPool.query(sql, (err, result) => {
@@ -90,7 +121,6 @@ async function getUserInfo(username) {
   //Wrap the execution of the query in a promise
   return new Promise((resolve, reject) => {
     connectionPool.query(sql, (err, result) => {
-      
       if (err) {
         //Check for errors
         reject("Error executing query: " + JSON.stringify(err));
@@ -117,7 +147,7 @@ async function getShowInfo(showName) {
   });
 }
 
-function storeUserReview(show_id, user_id,rating,review) {
+function storeUserReview(show_id, user_id, rating, review) {
   let sql = `INSERT INTO Reviews (review_id,show_id, user_id, rating,review)        
   VALUES (default, '${show_id}', '${user_id}','${rating}','${review}')`;
 
@@ -131,18 +161,17 @@ function storeUserReview(show_id, user_id,rating,review) {
   });
 }
 
-
-
+function checkDublicates() {}
 
 module.exports = {
   storeNewUser,
   storeNewShow,
-  getAllShows,
+  getAllTrending,
   storeTrendings,
   deleteCurrentData,
   getUserInfo,
   getShowInfo,
-  storeUserReview
+  storeUserReview,
 };
 
 //Execute query and output resul

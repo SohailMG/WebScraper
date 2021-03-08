@@ -88,7 +88,7 @@ app.post("/review", storeShowReview);
 
 app.get("/shows", (request, response) => {
   //Output the data sent to the server
-  let allData = db.getAllShows();
+  let allData = db.getAllTrending();
   allData
     .then((result) => {
       //Do something else

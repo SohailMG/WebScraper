@@ -3,7 +3,6 @@ const puppeteer = require("puppeteer");
 let url = "https://reelgood.com/curated/trending-picks/on-netflix";
 
 
-
 /**
  * scrapes a web page for titles tredning tv shows
  * @returns an array of  five show titles
