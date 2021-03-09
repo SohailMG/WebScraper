@@ -22,8 +22,6 @@ html {
   background-color: darkslategray;
 }
 #section4 {
-  height: 800px;
-  /* background-image: url(./images/power.jpg); */
   background-color: darkslategray;
   background-size: cover;
 }
@@ -244,7 +242,13 @@ input#showTitle {
   margin-top: 30px;
   margin-left: 10px;
   border: none;
-  background-color: gainsboro;
+  background-color: lemonchiffon;
+}
+p#user-review-box {
+  color: darkslategrey;
+  background-color: darkgrey;
+  height: 78px;
+  padding: 10px;
 }
 .username {
   width: 267px;
@@ -433,15 +437,18 @@ input#showTitle {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     margin-left: 100px;
+    margin-right: 60px;
     padding-top: 12%;
     gap: 20px;
+    padding-bottom: 100px;
   
 }
 .reviewed-box{
-  background-color: rgba(240, 248, 255, 0.363);
+  color: white;
+  background-color: black;
   height: auto;
   padding: 10px;
-  box-shadow: 0 0 10px black;
+  box-shadow: 0 0 10px floralwhite;
 
 }
 .reviewed-box > img{

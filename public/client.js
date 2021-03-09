@@ -1,4 +1,7 @@
-window.onload = showInfo;
+window.onload = () => {
+  showInfo();
+  displayReviews();
+};
 
 function submitLink() {
   let gridContainer = document.getElementsByClassName("searches-container")[0];
@@ -88,7 +91,7 @@ function hideGlow() {
   inputFiled.style.boxShadow = " 0  0 10px black";
 }
 
-async function getTrends() {
+function getTrends() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
@@ -125,10 +128,12 @@ function submitShow(event) {
     Premiered: strPremiered.replace("Premiered:", ""),
     image: imageLink.src,
   };
+
   let showName = document.getElementsByClassName("reviewed-show-name")[0];
   let reviewee = document.getElementsByClassName("username")[0];
 
-  (showName.value = strname.replace("Name:", "")), (reviewee.value = sessionStorage.getItem('loggedInEmail'));
+  (showName.value = strname.replace("Name:", "")),
+    (reviewee.value = sessionStorage.getItem("loggedInEmail"));
   console.log(show);
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
@@ -143,7 +148,7 @@ function submitShow(event) {
   xhttp.send(JSON.stringify({ Show: show }));
 }
 
-let customerRating ;
+let customerRating;
 function submitReview() {
   let reviewContainer = document.getElementsByClassName("review-container")[0];
   let showName = document.getElementsByClassName("reviewed-show-name")[0];
@@ -153,8 +158,8 @@ function submitReview() {
   let review = {
     show: showName.value.replace("Name:", ""),
     user: reviewee.value,
-    rating:customerRating,
-    content: reviewBox.value
+    rating: customerRating,
+    content: reviewBox.value,
   };
 
   let xhttp = new XMLHttpRequest();
@@ -164,6 +169,7 @@ function submitReview() {
       var modal = document.getElementById("review-modal");
       reviewContainer.style.display = "none";
       modal.style.display = "none";
+      location.reload();
       location.href = "#section4";
       console.log(review);
     }
@@ -206,3 +212,37 @@ container.onclick = (e) => {
   }
 };
 
+function displayReviews() {
+  let reviewGrid = document.getElementsByClassName("reviews-grid")[0];
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      let reviews = JSON.parse(xhttp.responseText);
+      // let reviews2
+
+      let reviews2 = []
+
+      console.log(reviews);
+      reviews.forEach((elms) => {
+        reviews2.push({elms : elms.title})
+      
+      });
+
+      reviews2 = reviews2.filter (function (value, index, array) { 
+        return reviews2.indexOf (value) == index;
+      });
+      
+      reviews.forEach((elm) => {
+        reviewGrid.innerHTML += `<div class="reviewed-box">
+        <p><b style="color: brown;">Submited by : </b>${elm.name} </p>
+        <img src="${elm.image}" alt="">
+        <p><b style="color: brown;">Title :</b> ${elm.title}</p>
+        <p><b style="color: brown;">Rating :</b> ${elm.rating}</p>
+        <p id="user-review-box">${elm.review}</p>
+       </div>`;
+      });
+    }
+  };
+  xhttp.open("GET", "/reviews", true);
+  xhttp.send();
+}

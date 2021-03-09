@@ -70,6 +70,7 @@ app.post("/review", storeShowReview);
       function (error, response, body) {
         if (!error && response.statusCode == 200) {
           data = JSON.parse(body);
+          console.log({data})
           // console.log(JSON.parse(body));
         }
         // storing show details into database
@@ -86,7 +87,7 @@ app.post("/review", storeShowReview);
   });
 })();
 
-app.get("/shows", (request, response) => {
+app.get("/shows", async (request, response) => {
   //Output the data sent to the server
   let allData = db.getAllTrending();
   allData
@@ -104,6 +105,14 @@ app.get("/shows", (request, response) => {
 
 
 app.post("/search", getSearches);
+app.get("/reviews" , displayReviews);
+
+async function displayReviews(req,res){
+  let custReviews = await db.getReviews();
+
+  res.send(custReviews)
+
+}
 
 /**
  * performs a get request to an API with the search
@@ -155,17 +164,17 @@ async function storeShowReview(request,response){
    
    let userInfo = await db.getUserInfo(userEmail);
    let showInfo = await db.getShowInfo(showName)
-   const storedShowName = showInfo[0].name;
+   const storedShowName = showInfo[0].title;
    const storedUserEmail = userInfo[0].email;
    const show_id = showInfo[0].show_id;
    const user_id = userInfo[0].user_id;
  
-   console.log({storedUserEmail,userEmail,storedShowName,showName}) 
    if (storedUserEmail == userEmail && storedShowName == showName) { 
      db.storeUserReview(show_id,user_id,rating,customerReview); 
+     response.send({ message: "Review Added" });
    }
+   
  
-   response.send({ message: "Review Added" });
 
 }
 

@@ -1,6 +1,4 @@
-const request = require("express");
-const xhttp = require("http");
-const axios = require("axios");
+
 
 const mysql = require("mysql");
 
@@ -21,16 +19,15 @@ async function storeNewShow(name, genres, ratings, image, premiered) {
 
   let isDublicate;
   shows.forEach((show) => {
-    if (show.name == name) {
-      // console.log("Already Stored");
+    console.log(show);
+    if (show.title == name) {
       isDublicate = true;
     } else {
       isDublicate = false;
     }
   });
-  console.log(isDublicate)
   if (!isDublicate) {
-    let sql = `INSERT INTO TVShows (show_id, name, genres, ratings, premiered,image)        
+    let sql = `INSERT INTO TVShows (show_id, title, genres, ratings, premiered,image)        
     VALUES (default, '${name}', '${genres}', '${ratings}', '${premiered}', '${image}')`;
 
     connectionPool.query(sql, (err, result) => {
@@ -132,7 +129,23 @@ async function getUserInfo(username) {
   });
 }
 async function getShowInfo(showName) {
-  let sql = `SELECT * FROM TVShows WHERE name='${showName}'`;
+  let sql = `SELECT * FROM TVShows WHERE title='${showName}'`;
+  //Wrap the execution of the query in a promise
+  return new Promise((resolve, reject) => {
+    connectionPool.query(sql, (err, result) => {
+      if (err) {
+        //Check for errors
+        reject("Error executing query: " + JSON.stringify(err));
+      } else {
+        //Resolve promise with results
+        resolve(result);
+      }
+    });
+  });
+}
+async function getReviews() {
+  let sql =
+    "SELECT u.name ,t.title, t.image,r.review ,r.rating FROM Users u , TVShows t , Reviews r WHERE r.user_id  = u.user_id AND r.show_id = t.show_id ";
   //Wrap the execution of the query in a promise
   return new Promise((resolve, reject) => {
     connectionPool.query(sql, (err, result) => {
@@ -161,8 +174,6 @@ function storeUserReview(show_id, user_id, rating, review) {
   });
 }
 
-function checkDublicates() {}
-
 module.exports = {
   storeNewUser,
   storeNewShow,
@@ -172,6 +183,7 @@ module.exports = {
   getUserInfo,
   getShowInfo,
   storeUserReview,
+  getReviews
 };
 
 //Execute query and output resul
