@@ -159,6 +159,25 @@ async function getReviews() {
     });
   });
 }
+async function getAverageRatings() {
+  let sql =
+    `SELECT r.show_id , AVG(rating) AS 'Average',t.title
+    FROM Reviews r,TVShows t 
+    WHERE r.show_id  = t.show_id 
+    GROUP BY  r.show_id `;
+  //Wrap the execution of the query in a promise
+  return new Promise((resolve, reject) => {
+    connectionPool.query(sql, (err, result) => {
+      if (err) {
+        //Check for errors
+        reject("Error executing query: " + JSON.stringify(err));
+      } else {
+        //Resolve promise with results
+        resolve(result);
+      }
+    });
+  });
+}
 
 function storeUserReview(show_id, user_id, rating, review) {
   let sql = `INSERT INTO Reviews (review_id,show_id, user_id, rating,review)        
@@ -183,7 +202,7 @@ module.exports = {
   getUserInfo,
   getShowInfo,
   storeUserReview,
-  getReviews
+  getReviews,getAverageRatings
 };
 
 //Execute query and output resul

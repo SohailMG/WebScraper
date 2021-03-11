@@ -1,0 +1,198 @@
+
+#section4 {
+    background-color: darkslategray;
+    background-size: cover;
+    font-family:'Courier New', Courier, monospace;
+  }
+#section4 > h1 {
+    text-align: center;
+    margin: 0;
+    position: absolute;
+    margin-top: 5%;
+    margin-left: 39%;
+    font-family: monospace;
+    color: cornsilk;
+    text-shadow: 0 10px 10px black;
+    border-bottom: 1px solid black;
+    height: 43px;
+  }
+  
+  .reviews-grid{
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      margin-left: 100px;
+      margin-right: 60px;
+      padding-top: 12%;
+      gap: 20px;
+      padding-bottom: 100px;
+    
+  }
+  .reviewed-box{
+    color: white;
+    background-color: black;
+    height: auto;
+    padding: 10px;
+    box-shadow: 0 0 10px floralwhite;
+  
+  }
+  .reviewed-box > img{
+  
+  }
+  /* section 4 reviews */
+.review-container {
+  position: absolute;
+  display: block;
+  width: 488px;
+  height: 450px;
+  margin-top: 4%;
+  margin-left: 34%;
+  border-radius: 10px;
+  background: #495c70;
+  padding: 30px 30px 15px 30px;
+  border: 5px solid #53687e;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 16px;
+  color: #fff;
+}
+
+.review-container > h1 {
+  margin-left: 25%;
+  padding-top: 25px;
+  color: cadetblue;
+}
+.reviewed-show-name {
+  color: maroon;
+  width: 267px;
+  font-size: larger;
+  margin-left: 10px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed #83a4c5;
+  width: 355px;
+  outline: none;
+  padding: 0px 0px 0px 0px;
+  font-style: italic;
+}
+.review-box {
+  margin-top: 30px;
+  margin-left: 10px;
+  border: none;
+  background-color: lemonchiffon;
+}
+p#user-review-box {
+  color: darkslategrey;
+  background-color: darkgrey;
+  height: 78px;
+  padding: 10px;
+}
+.username {
+  color: maroon;
+  width: 267px;
+  font-size: larger;
+  margin-left: 10px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px dashed #83a4c5;
+  width: 355px;
+  outline: none;
+  padding: 0px 0px 0px 0px;
+  font-style: italic;
+}
+
+.rating {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  }
+  
+  .rating li {
+  list-style-type: none
+  }
+  
+  .rating-item {
+  border: 1px solid #fff;
+  cursor: pointer;
+  font-size:2em;
+  color: yellow;
+  }
+  
+  /* initial: make all stars full */
+  .rating-item::before {
+  content: "\2605";
+  }
+  
+  /* make until the clicked star (the rest) empty */
+  .rating-item.active ~ .rating-item::before {
+  content: "\2606";
+  }
+  
+  /* on hover make all full */
+  .rating:hover .rating-item::before {
+  content: "\2605";
+  }
+  
+  /* make until the hovered (the rest) empty */
+  .rating-item:hover ~ .rating-item::before {
+  content: "\2606";
+  }
+  li.rating-item {
+    border: none;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+.submit-review {
+  background: darkcyan;
+  border: none;
+  padding: 8px 10px 8px 10px;
+  border-radius: 5px;
+  color: #a8bace;
+  margin-left: 43%;
+  margin-top: 28px;
+  color: white;
+}
+.submit-review:hover {
+  background: #394d61;
+}
+.review-container > label {
+  margin-left: 14px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 16px;
+  color: #fff;
+}

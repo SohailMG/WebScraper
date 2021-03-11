@@ -68,11 +68,12 @@ app.post("/review", storeShowReview);
     requestAPI(
       `${APIEndpoint}/singlesearch/shows?q=${showTitle}`,
       function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-          data = JSON.parse(body);
-          console.log({data})
-          // console.log(JSON.parse(body));
-        }
+          let data;
+          if (!error && response.statusCode == 200) {
+              data = JSON.parse(body);
+              // console.log({data})
+              // console.log(JSON.parse(body));
+          }
         // storing show details into database
         db.storeTrendings(
           data.id,
@@ -102,15 +103,15 @@ app.get("/shows", async (request, response) => {
     });
 });
 
-
-
 app.post("/search", getSearches);
 app.get("/reviews" , displayReviews);
 
 async function displayReviews(req,res){
   let custReviews = await db.getReviews();
+  let avgRatings = await db.getAverageRatings();
+  console.log(avgRatings)
 
-  res.send(custReviews)
+  res.send({custReviews,avgRatings})
 
 }
 
@@ -129,25 +130,26 @@ function getSearches(req, res) {
   requestAPI(
     `${APIEndpoint}/search/shows?q=${searchQuery}`,
     function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-        data = JSON.parse(body);
-        for (let i = 0; i < MAX_SEARCHES; i++) {
-          if (data[i] != undefined) {
-            if (data[i].show.image != null) {
-              let shows = {
-                name: data[i].show.name,
-                genres: data[i].show.genres,
-                ratings: data[i].show.rating.average,
-                premiered: data[i].show.premiered,
-                image: data[i].show.image.medium,
-              };
-              showD.push(shows);
-            } else {
+        let data;
+        if (!error && response.statusCode == 200) {
+            data = JSON.parse(body);
+            for (let i = 0; i < MAX_SEARCHES; i++) {
+                if (data[i] !== undefined) {
+                    if (data[i].show.image != null) {
+                        let shows = {
+                            name: data[i].show.name,
+                            genres: data[i].show.genres,
+                            ratings: data[i].show.rating.average,
+                            premiered: data[i].show.premiered,
+                            image: data[i].show.image.medium,
+                        };
+                        showD.push(shows);
+                    } else {
+                    }
+                }
             }
-          }
+            res.send(showD);
         }
-        res.send(showD);
-      }
     }
   );
 }

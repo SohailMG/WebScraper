@@ -1,6 +1,6 @@
 const puppeteer = require("puppeteer");
 
-let url = "https://reelgood.com/curated/trending-picks/on-netflix";
+let url = "https://reelgood.com/curated/trending-picks";
 
 
 /**

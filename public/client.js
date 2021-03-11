@@ -1,6 +1,7 @@
 window.onload = () => {
   showInfo();
   displayReviews();
+  checkLogin();
 };
 
 function submitLink() {
@@ -154,6 +155,7 @@ function submitReview() {
   let showName = document.getElementsByClassName("reviewed-show-name")[0];
   let reviewee = document.getElementsByClassName("username")[0];
   let reviewBox = document.getElementsByClassName("review-box")[0];
+  let reviewGrid = document.getElementsByClassName("reviews-grid")[0];
 
   let review = {
     show: showName.value.replace("Name:", ""),
@@ -169,8 +171,9 @@ function submitReview() {
       var modal = document.getElementById("review-modal");
       reviewContainer.style.display = "none";
       modal.style.display = "none";
-      location.reload();
       location.href = "#section4";
+      reviewGrid.innerHTML = "";
+      displayReviews();
       console.log(review);
     }
   };
@@ -178,23 +181,6 @@ function submitReview() {
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send(JSON.stringify({ reviews: review }));
 }
-
-// Get the modal
-var modal = document.getElementById("review-modal");
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-// When the user clicks on <span> (x), close the modal
-span.onclick = function () {
-  modal.style.display = "none";
-};
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function (event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-};
 
 const container = document.querySelector(".rating");
 const items = container.querySelectorAll(".rating-item");
@@ -217,30 +203,35 @@ function displayReviews() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      let reviews = JSON.parse(xhttp.responseText);
+      let reviewInfo = JSON.parse(xhttp.responseText);
       // let reviews2
-
-      let reviews2 = []
-
-      console.log(reviews);
-      reviews.forEach((elms) => {
-        reviews2.push({elms : elms.title})
+      let reviews = reviewInfo.custReviews;
+      let averageRating = reviewInfo.avgRatings;
       
-      });
 
-      reviews2 = reviews2.filter (function (value, index, array) { 
-        return reviews2.indexOf (value) == index;
-      });
-      
       reviews.forEach((elm) => {
         reviewGrid.innerHTML += `<div class="reviewed-box">
         <p><b style="color: brown;">Submited by : </b>${elm.name} </p>
         <img src="${elm.image}" alt="">
-        <p><b style="color: brown;">Title :</b> ${elm.title}</p>
-        <p><b style="color: brown;">Rating :</b> ${elm.rating}</p>
+        <p class="review-show-title"><b style="color: brown;">Title :</b> ${elm.title}</p>
+        <p><b style="color: brown;">User Rating :</b> ${elm.rating}/5</p>
+        <p class="average-review"></b>
         <p id="user-review-box">${elm.review}</p>
+        
        </div>`;
       });
+      // adding average rating for each show by compare titles
+      let reviewBoxTitles = document.querySelectorAll(".review-show-title");
+      for (let i = 0; i < reviewBoxTitles.length; i++) {
+        const boxTitle = reviewBoxTitles[i].innerText.replace("Title : ", "");
+        for (let j = 0; j < averageRating.length; j++) {
+          const rating = averageRating[j];
+          if (rating.title == boxTitle) {
+            let avgReviewBox = reviewBoxTitles[i].parentElement.getElementsByClassName("average-review")[0];
+            avgReviewBox.innerHTML = `<b style="color: brown;">Average Rating : </b>${rating.Average}`;
+          }
+        }
+      }
     }
   };
   xhttp.open("GET", "/reviews", true);
