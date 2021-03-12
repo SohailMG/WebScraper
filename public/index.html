@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="home.css" />
     <link rel="stylesheet" href="reviews.css" />
     <link rel="stylesheet" href="trending.css" />
-    
+
     <title>Document</title>
   </head>
   <body>
@@ -68,16 +68,23 @@
               >
                 Cancel
               </button>
-              <button type="submit" class="signupbtn" onclick="sendUserData()">Sign Up</button>
+              <button type="submit" class="signupbtn" onclick="sendUserData()">
+                Sign Up
+              </button>
             </div>
           </div>
         </div>
         <!-- sing in form -->
-        <button class="login-btn"onclick="document.getElementById('signin-form').style.display='block'">Sing In</button>
+        <button
+          class="login-btn"
+          onclick="document.getElementById('signin-form').style.display='block'"
+        >
+          Sing In
+        </button>
         <div id="signin-form" class="modal">
           <div class="register-forms">
-            <h1>Sign In</h1>  
-            <p id="login-info"></p>       
+            <h1>Sign In</h1>
+            <p id="login-info"></p>
             <hr />
             <label for="email"><b>Email</b></label>
             <input
@@ -95,7 +102,7 @@
               id="login-pass"
               required
             />
-            
+
             <div class="clearfix">
               <button
                 type="button"
@@ -104,16 +111,25 @@
               >
                 Cancel
               </button>
-              <button  class="signupbtn" onclick="sendLoginData()">Sign In</button>
+              <button class="signupbtn" onclick="sendLoginData()">
+                Sign In
+              </button>
             </div>
           </div>
-        </div>   
+        </div>
       </div>
     </div>
 
     <!-- section 1  -->
     <div class="main" id="section1">
-      
+      <div id="left-home">
+      <div id="home-img"><img src="./images/tvIcon.png" alt="" /></div>
+      <p id="home-description">
+        
+      </p>
+    </div>
+    <button id="get-started" onclick="location.href=`#section3`">Get Started</button>
+    
       <!--  -->
       <div id="signup-form" class="modal">
         <span
@@ -196,17 +212,22 @@
           <span class="close">&times;</span>
           <h1>Review Show</h1>
           <label for="show">SHOW</label>
-          <input type="text" class="reviewed-show-name" name="show" disabled="true"/>
+          <input
+            type="text"
+            class="reviewed-show-name"
+            name="show"
+            disabled="true"
+          />
           <label for="username">USER</label>
-          
+
           <input type="text" class="username" name="usernme" disabled="true" />
-          <ul class="rating" >
+          <ul class="rating">
             <li class="rating-item active" data-rate="1"></li>
             <li class="rating-item" data-rate="2"></li>
             <li class="rating-item" data-rate="3"></li>
             <li class="rating-item" data-rate="4"></li>
             <li class="rating-item" data-rate="5"></li>
-            </ul>
+          </ul>
           <textarea
             placeholder="Write Review..."
             name="review"
@@ -223,24 +244,27 @@
       </div>
     </div>
     <div class="main" id="section4">
-      <h1>Movie Reviews</h1>
-      <div class="reviews-grid">
-        
-      </div>
+      <h1>User Reviews</h1>
+      <div class="reviews-grid"></div>
     </div>
     <!-- footer design  -->
     <div class="footer-basic">
       <footer>
-          <div class="social"><a href="#"><i class="icon ion-social-instagram"></i></a><a href="#"><i class="icon ion-social-snapchat"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a><a href="#"><i class="icon ion-social-facebook"></i></a></div>
-          <ul class="list-inline">
-              <li class="list-inline-item"><a href="#section1">Home</a></li>
-              <li class="list-inline-item"><a href="#section2">Treding</a></li>
-              <li class="list-inline-item"><a href="#section3">TVShows</a></li>
-              <li class="list-inline-item"><a href="#section4">Reviews</a></li>
-          </ul>
-          <p class="copyright">Show Reviewer © 2021</p>
+        <div class="social">
+          <a href="#"><i class="icon ion-social-instagram"></i></a
+          ><a href="#"><i class="icon ion-social-snapchat"></i></a
+          ><a href="#"><i class="icon ion-social-twitter"></i></a
+          ><a href="#"><i class="icon ion-social-facebook"></i></a>
+        </div>
+        <ul class="list-inline">
+          <li class="list-inline-item"><a href="#section1">Home</a></li>
+          <li class="list-inline-item"><a href="#section2">Treding</a></li>
+          <li class="list-inline-item"><a href="#section3">TVShows</a></li>
+          <li class="list-inline-item"><a href="#section4">Reviews</a></li>
+        </ul>
+        <p class="copyright">Show Reviewer © 2021</p>
       </footer>
-  </div>
+    </div>
 
     <script src="client.js"></script>
     <script src="client-register.js"></script>

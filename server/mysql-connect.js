@@ -161,7 +161,7 @@ async function getReviews() {
 }
 async function getAverageRatings() {
   let sql =
-    `SELECT r.show_id , AVG(rating) AS 'Average',t.title
+    `SELECT r.show_id , ROUND(AVG(rating),1) AS 'Average',t.title
     FROM Reviews r,TVShows t 
     WHERE r.show_id  = t.show_id 
     GROUP BY  r.show_id `;

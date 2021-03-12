@@ -2,6 +2,10 @@ window.onload = () => {
   showInfo();
   displayReviews();
   checkLogin();
+  typeWriter();
+};
+window.onscroll = function () {
+  myFunction();
 };
 
 function submitLink() {
@@ -68,9 +72,7 @@ function showInfo() {
   xhttp.send();
 }
 
-window.onscroll = function () {
-  myFunction();
-};
+
 
 var navbar = document.getElementsByClassName("navbar")[0];
 var sticky = navbar.offsetTop;
@@ -236,4 +238,18 @@ function displayReviews() {
   };
   xhttp.open("GET", "/reviews", true);
   xhttp.send();
+}
+
+var i = 0;
+var txt = `Share your favourite TV Show series.
+Add your thoughts on your favourite show 
+and see what others said about their favourite show .
+Explore the currently trending shows`;
+var speed = 60;
+function typeWriter() {
+  if (i < txt.length) {
+    document.getElementById("home-description").innerHTML += txt.charAt(i);
+    i++;
+    setTimeout(typeWriter, speed);
+  }
 }

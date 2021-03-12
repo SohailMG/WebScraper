@@ -8,8 +8,9 @@ html {
 
 #section1 {
   height: 800px;
-  background-image: url(./images/bg.jpg);
+  /* background-image: url(./images/bg.jpg); */
   background-size: cover;
+  background-color: burlywood;
 }
 .sticky {
   text-align: center;
@@ -24,7 +25,7 @@ html {
 .navbar a {
   float: centre;
   font-size: 16px;
-  color: black;
+  color: rgb(56, 0, 0);
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -50,14 +51,38 @@ html {
   display: flex;
   text-align: center;
   align-items: center;
-  background-color: whitesmoke;
-  /* align-content: center; */
+  background-color: rgba(220, 220, 220, 0.253);
 }
 .navbar a:hover,
 .dropdown:hover .dropbtn {
-  color: yellow;
+  color: darkred;
+}
+#home-img > img{
+  width: 300px;
+
 }
 
+#home-description{
+  text-align: center;
+  font-family: fantasy;
+  /* padding-top: 26%; */
+}
+button#get-started {
+  width: 200px;
+  height: 40px;
+  border: none;
+  background-color: darkred;
+  color: white;
+  margin-left: 43%;
+}
+div#left-home {
+  margin-left: 36%;
+  padding-top: 12%;
+  width: 400px;
+  text-align: center;
+  align-items: center;
+  align-content: center;
+}
 
 .dropdown-content {
   display: none;
@@ -92,22 +117,22 @@ html {
     padding-left: 10%;
 }
 .register-btns > button {
-  background: darkcyan;
+  background: darkred;
   border: none;
   padding: 8px 10px 8px 10px;
   border-radius: 5px;
-  color: #a8bace;
+  /* color: #a8bace; */
   color: white;
 }
 .register-btns > button:hover{
-  background: #394d61;
+  background: burlywood;
 }
 .register-forms{
-  margin-left: 25%;
+  margin-left: 31%;
   padding-top: 25px;
-  color: cadetblue;
+  color: burlywood;
   width: 526px;
-  background-color: darkslategrey;
+  background-color: rgb(59, 7, 7);
   padding: 36px;
 }
 .register-forms > label{
@@ -134,12 +159,12 @@ html {
   margin-left: 34%;
 }
 .clearfix > button {
-  background: darkcyan;
+  background: burlywood;
   border: none;
   padding: 8px 10px 8px 10px;
   border-radius: 5px;
   color: #a8bace;
-  color: white;
+  color: darkred;
 }
 
 /* footer design */
