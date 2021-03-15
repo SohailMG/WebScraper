@@ -72,8 +72,6 @@ function showInfo() {
   xhttp.send();
 }
 
-
-
 var navbar = document.getElementsByClassName("navbar")[0];
 var sticky = navbar.offsetTop;
 
@@ -209,15 +207,16 @@ function displayReviews() {
       // let reviews2
       let reviews = reviewInfo.custReviews;
       let averageRating = reviewInfo.avgRatings;
-      
 
       reviews.forEach((elm) => {
         reviewGrid.innerHTML += `<div class="reviewed-box">
-        <p><b style="color: brown;">Submited by : </b>${elm.name} </p>
         <img src="${elm.image}" alt="">
+        <div id="review-contents">
+        <p><b style="color: brown;">Submited by : </b>${elm.name} </p>
         <p class="review-show-title"><b style="color: brown;">Title :</b> ${elm.title}</p>
         <p><b style="color: brown;">User Rating :</b> ${elm.rating}/5</p>
         <p class="average-review"></b>
+        </div>
         <p id="user-review-box">${elm.review}</p>
         
        </div>`;
@@ -229,11 +228,14 @@ function displayReviews() {
         for (let j = 0; j < averageRating.length; j++) {
           const rating = averageRating[j];
           if (rating.title == boxTitle) {
-            let avgReviewBox = reviewBoxTitles[i].parentElement.getElementsByClassName("average-review")[0];
+            let avgReviewBox = reviewBoxTitles[
+              i
+            ].parentElement.getElementsByClassName("average-review")[0];
             avgReviewBox.innerHTML = `<b style="color: brown;">Average Rating : </b>${rating.Average}`;
           }
         }
       }
+      displayStarRating();
     }
   };
   xhttp.open("GET", "/reviews", true);
@@ -252,4 +254,48 @@ function typeWriter() {
     i++;
     setTimeout(typeWriter, speed);
   }
+}
+
+function displayStarRating() {
+  let ratingDiv = `<div class="avgRating">`;
+  let starsDiv = `<span class="fa fa-star"></span>
+      <span class="fa fa-star"></span>
+      <span class="fa fa-star"></span>
+      <span class="fa fa-star"></span>
+      <span class="fa fa-star"></span>`;
+  // let ratingContents = document.getElementById('review-contents');
+
+  let reviewBox = document.querySelectorAll(".reviewed-box");
+  reviewBox.forEach((element) => {
+    let ratingContents = element.querySelector("#review-contents");
+    ratingContents.innerHTML += ratingDiv + starsDiv;
+    let currrentShowRev = ratingContents.querySelector(".average-review");
+    let avgReview = Math.round(
+      parseFloat(currrentShowRev.innerText.replace("Average Rating : ", ""))
+    );
+
+    let starsContainer = element.getElementsByClassName("avgRating");
+    // console.log(starsContainer);
+    for (let i = 0; i < starsContainer.length; i++) {
+      let star = starsContainer[i].getElementsByClassName("fa-star");
+      for (let j = 0; j < star.length; j++) {
+        for (let k = 0; k < avgReview; k++) {
+          const stars = star[k];
+          stars.classList.add("checked");
+        }
+      }
+    }
+  });
+
+  // for (let i = 0; i < 5; i++) {
+  //   let ratingDiv = document.getElementsByClassName('avgRating')[0];
+  //   ratingDiv.innerHTML += `<span class="fa fa-star"></span>`;
+  // }
+  // let starsContainer = document.getElementsByClassName('avgRating')[0]
+  // for (let i = 0; i < 4; i++) {
+  //   let star = starsContainer.getElementsByClassName('fa-star')[i]
+  //   star.classList.add('checked')
+
+  // }
+  ratingDiv.innerHTML += `</div>`;
 }

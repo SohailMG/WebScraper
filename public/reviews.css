@@ -19,21 +19,20 @@
   
   .reviews-grid{
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr;
       margin-left: 100px;
       margin-right: 60px;
       padding-top: 12%;
       gap: 20px;
       padding-bottom: 100px;
-    
   }
   .reviewed-box{
     color: white;
-    background-color: black;
+    background-color: burlywood;
     height: auto;
     padding: 10px;
-    box-shadow: 0 0 10px floralwhite;
-  
+    box-shadow: 0 0 10px lavenderblush;
+    display: flex;
   }
   .reviewed-box > img{
   
@@ -84,6 +83,9 @@ p#user-review-box {
   background-color: darkgrey;
   height: 78px;
   padding: 10px;
+  width: 500px;
+  margin-left: 10%;
+  /* padding-left: 28px; */
 }
 .username {
   color: maroon;
@@ -195,4 +197,10 @@ p#user-review-box {
   font-family: Georgia, "Times New Roman", Times, serif;
   font-size: 16px;
   color: #fff;
+}
+div#review-contents {
+  margin-left: 2%;
+}
+.checked {
+  color: orange;
 }
