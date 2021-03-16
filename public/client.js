@@ -3,6 +3,7 @@ window.onload = () => {
   displayReviews();
   checkLogin();
   typeWriter();
+  editPosts();
 };
 window.onscroll = function () {
   myFunction();
@@ -106,81 +107,11 @@ function getTrends() {
 
 let shareBtns = document.getElementsByClassName("share-btn");
 for (let i = 0; i < shareBtns.length; i++) {
-  let addToCart_btn = shareBtns[i];
+  let addReviewbtns = shareBtns[i];
 
-  addToCart_btn.addEventListener("click", submitShow);
-}
-function submitShow(event) {
-  let reviewBox = document.getElementsByClassName("review-container")[0];
-  let modal = document.getElementById("review-modal");
-  let btn = event.target;
-  let showInfo = btn.parentElement;
-
-  let strname = showInfo.getElementsByTagName("p")[0].innerText;
-  let strRating = showInfo.getElementsByTagName("p")[1].innerText;
-  let strGenres = showInfo.getElementsByTagName("p")[2].innerText;
-  let strPremiered = showInfo.getElementsByTagName("p")[3].innerText;
-  let imageLink = showInfo.parentElement.getElementsByTagName("img")[0];
-
-  let show = {
-    name: strname.replace("Name:", ""),
-    Rating: strRating.replace("Ratings:", ""),
-    Genres: strGenres.replace("Genres:", ""),
-    Premiered: strPremiered.replace("Premiered:", ""),
-    image: imageLink.src,
-  };
-
-  let showName = document.getElementsByClassName("reviewed-show-name")[0];
-  let reviewee = document.getElementsByClassName("username")[0];
-
-  (showName.value = strname.replace("Name:", "")),
-    (reviewee.value = sessionStorage.getItem("loggedInEmail"));
-  console.log(show);
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      console.log(xhttp.responseText);
-      reviewBox.style.display = "block";
-      modal.style.display = "block";
-    }
-  };
-  xhttp.open("POST", "/shows", true);
-  xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.send(JSON.stringify({ Show: show }));
+  addReviewBtns.addEventListener("click", submitShow);
 }
 
-let customerRating;
-function submitReview() {
-  let reviewContainer = document.getElementsByClassName("review-container")[0];
-  let showName = document.getElementsByClassName("reviewed-show-name")[0];
-  let reviewee = document.getElementsByClassName("username")[0];
-  let reviewBox = document.getElementsByClassName("review-box")[0];
-  let reviewGrid = document.getElementsByClassName("reviews-grid")[0];
-
-  let review = {
-    show: showName.value.replace("Name:", ""),
-    user: reviewee.value,
-    rating: customerRating,
-    content: reviewBox.value,
-  };
-
-  let xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      console.log(xhttp.responseText);
-      var modal = document.getElementById("review-modal");
-      reviewContainer.style.display = "none";
-      modal.style.display = "none";
-      location.href = "#section4";
-      reviewGrid.innerHTML = "";
-      displayReviews();
-      console.log(review);
-    }
-  };
-  xhttp.open("POST", "/review", true);
-  xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.send(JSON.stringify({ reviews: review }));
-}
 
 const container = document.querySelector(".rating");
 const items = container.querySelectorAll(".rating-item");
@@ -211,30 +142,18 @@ function displayReviews() {
       reviews.forEach((elm) => {
         reviewGrid.innerHTML += `<div class="reviewed-box">
         <img src="${elm.image}" alt="">
-        <div id="review-contents">
+        <div id="review-contents" class="content-container">
         <p><b style="color: brown;">Submited by : </b>${elm.name} </p>
         <p class="review-show-title"><b style="color: brown;">Title :</b> ${elm.title}</p>
         <p><b style="color: brown;">User Rating :</b> ${elm.rating}/5</p>
         <p class="average-review"></b>
         </div>
-        <p id="user-review-box">${elm.review}</p>
+        <input  id="user-review-box"  type="text" value="${elm.review}" disabled="true">
         
        </div>`;
       });
       // adding average rating for each show by compare titles
-      let reviewBoxTitles = document.querySelectorAll(".review-show-title");
-      for (let i = 0; i < reviewBoxTitles.length; i++) {
-        const boxTitle = reviewBoxTitles[i].innerText.replace("Title : ", "");
-        for (let j = 0; j < averageRating.length; j++) {
-          const rating = averageRating[j];
-          if (rating.title == boxTitle) {
-            let avgReviewBox = reviewBoxTitles[
-              i
-            ].parentElement.getElementsByClassName("average-review")[0];
-            avgReviewBox.innerHTML = `<b style="color: brown;">Average Rating : </b>${rating.Average}`;
-          }
-        }
-      }
+      addAverageRating(averageRating);
       displayStarRating();
     }
   };
@@ -286,16 +205,5 @@ function displayStarRating() {
       }
     }
   });
-
-  // for (let i = 0; i < 5; i++) {
-  //   let ratingDiv = document.getElementsByClassName('avgRating')[0];
-  //   ratingDiv.innerHTML += `<span class="fa fa-star"></span>`;
-  // }
-  // let starsContainer = document.getElementsByClassName('avgRating')[0]
-  // for (let i = 0; i < 4; i++) {
-  //   let star = starsContainer.getElementsByClassName('fa-star')[i]
-  //   star.classList.add('checked')
-
-  // }
   ratingDiv.innerHTML += `</div>`;
 }

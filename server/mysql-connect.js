@@ -193,6 +193,52 @@ function storeUserReview(show_id, user_id, rating, review) {
   });
 }
 
+async function getLoggedName(userEmail) {
+  let sql = `SELECT u.name FROM Users u WHERE email='${userEmail}'`;
+  //Wrap the execution of the query in a promise
+  return new Promise((resolve, reject) => {
+    connectionPool.query(sql, (err, result) => {
+      if (err) {
+        //Check for errors
+        reject("Error executing query: " + JSON.stringify(err));
+      } else {
+        //Resolve promise with results
+        resolve(result);
+      }
+    });
+  });
+}
+async function removeReviewPost(review) {
+  let sql = `DELETE FROM Reviews WHERE review='${review}' ;`;
+  //Wrap the execution of the query in a promise
+  return new Promise((resolve, reject) => {
+    connectionPool.query(sql, (err, result) => {
+      if (err) {
+        //Check for errors
+        reject("Error executing query: " + JSON.stringify(err));
+      } else {
+        //Resolve promise with results
+        resolve(result);
+      }
+    });
+  });
+}
+async function updateReviewPost(newReview,oldreview) {
+  let sql = `UPDATE Reviews SET review = '${newReview}' WHERE review = '${oldreview}' ;`;
+  //Wrap the execution of the query in a promise
+  return new Promise((resolve, reject) => {
+    connectionPool.query(sql, (err, result) => {
+      if (err) {
+        //Check for errors
+        reject("Error executing query: " + JSON.stringify(err));
+      } else {
+        //Resolve promise with results
+        resolve(result);
+      }
+    });
+  });
+}
+
 module.exports = {
   storeNewUser,
   storeNewShow,
@@ -202,7 +248,7 @@ module.exports = {
   getUserInfo,
   getShowInfo,
   storeUserReview,
-  getReviews,getAverageRatings
+  getReviews,getAverageRatings,getLoggedName,removeReviewPost,updateReviewPost
 };
 
 //Execute query and output resul

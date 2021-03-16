@@ -56,6 +56,7 @@ app.post("/login", async (request, response) => {
   
 });
 app.post("/review", storeShowReview);
+app.post("/logged", getLoggedName);
 
 /**
  * scrapes website titles of top 5 shows currently trending
@@ -104,6 +105,8 @@ app.get("/shows", async (request, response) => {
 });
 
 app.post("/search", getSearches);
+app.post("/update", updatePost);
+app.post("/remove", removePost);
 app.get("/reviews" , displayReviews);
 
 async function displayReviews(req,res){
@@ -178,6 +181,27 @@ async function storeShowReview(request,response){
    
  
 
+}
+
+async function getLoggedName(request,response){
+  let postedEmail = request.body.userEmail;
+  let loggedName = await db.getLoggedName(postedEmail);
+  response.send(loggedName)
+}
+async function removePost(request,response){
+  let reviewContent = request.body.review;
+  console.log(reviewContent)
+  let deletedRow = await db.removeReviewPost(reviewContent);
+  console.log({deletedRow})
+  // response.send(loggedName)
+}
+async function updatePost(request,response){
+  let updatedContent = request.body;
+  let oldReview = updatedContent.oldReview;
+  let newReview = updatedContent.newReview;
+  
+  let updated = await db.updateReviewPost(newReview,oldReview);
+  response.send({updated : newReview})
 }
 
 app.listen(port);
