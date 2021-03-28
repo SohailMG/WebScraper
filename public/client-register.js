@@ -16,6 +16,7 @@ function sendUserData(){
     if (this.readyState == 4 && this.status == 200) {
       let res = JSON.parse(xhttp.responseText);
       if (res.message == 'user added') {
+        
           let alertMsg = document.getElementById('form-info');      
           alertMsg.innerHTML = "Account Added Successfuly!";
           alertMsg.style.color="lawngreen";

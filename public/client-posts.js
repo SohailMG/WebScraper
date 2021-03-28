@@ -85,7 +85,7 @@ function addAverageRating(averageRating) {
         let avgReviewBox = reviewBoxTitles[
           i
         ].parentElement.getElementsByClassName("average-review")[0];
-        avgReviewBox.innerHTML = `<b style="color: brown;">Average Rating : </b>${rating.Average}`;
+        avgReviewBox.innerHTML = `<b style="color: grey;">Average Rating : </b>${rating.Average}`;
       }
     }
   }
@@ -110,7 +110,7 @@ function editPosts() {
           post.innerHTML += `<div class="post-btns">
                 <button class="edit-post" onclick="editCurrentPost(this)">Edit</button>
                 <button class="remove-post" onclick="removePost(this)">Remove</button>
-                <button class="submit-changes" onclick="submitChanges(this)">Submit</button>
+                <button class="submit-changes" onclick="submitChanges(this)">Done</button>
                 </div>`;
         }
       }
@@ -122,38 +122,38 @@ function editPosts() {
   xhttp.send(JSON.stringify({ userEmail: loggedEmail }));
 }
 
-
 function editCurrentPost(elm) {
   let parentDiv = elm.parentNode.parentNode;
   let reviewBox = parentDiv.querySelector("#user-review-box");
   let btnContainer = elm.parentNode;
-  let arr = btnContainer.querySelectorAll('button');
+  let arr = btnContainer.querySelectorAll("button");
   for (let i = 0; i < arr.length; i++) {
-      const btn = arr[i];
-      btn.style.display="block";
-      
+    const btn = arr[i];
+    btn.style.display = "block";
   }
-  localStorage.setItem('oldReview',reviewBox.value);
+  localStorage.setItem("oldReview", reviewBox.value);
   reviewBox.disabled = false;
-  reviewBox.focus()
+  reviewBox.focus();
 }
 /**
  * removing review post from html and database
- * @param {HTMLElement} elm 
+ * @param {HTMLElement} elm
  */
 function removePost(elm) {
+  let xhttp = new XMLHttpRequest();
   let parentDiv = elm.parentNode.parentNode;
   let reviewBox = parentDiv.querySelector("#user-review-box");
   let btnContainer = elm.parentNode;
-  let arr = btnContainer.querySelectorAll('button');
-  let xhttp = new XMLHttpRequest();
+  let arr = btnContainer.querySelectorAll("button");
+  console.log(parentDiv);
   xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      let res = JSON.parse(xhttp.responseText);
-      parentDiv.remove();
-      arr[1].style.display="none";
-      arr[2].style.display="none";
-    }
+    console.log(parentDiv);
+
+    let res = xhttp.responseText;
+    parentDiv.remove();
+    console.log(res);
+    arr[1].style.display = "none";
+    arr[2].style.display = "none";
   };
 
   xhttp.open("POST", "/remove", true);
@@ -162,31 +162,30 @@ function removePost(elm) {
 }
 /**
  * updating changes made to review
- * @param {HTMLElement} elm 
+ * @param {HTMLElement} elm
  */
 function submitChanges(elm) {
   let parentDiv = elm.parentNode.parentNode;
   let reviewBox = parentDiv.querySelector("#user-review-box");
   let btnContainer = elm.parentNode;
-  let arr = btnContainer.querySelectorAll('button');
-  
+  let arr = btnContainer.querySelectorAll("button");
 
   let xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       let res = JSON.parse(xhttp.responseText);
       reviewBox.value = res.updated;
-      reviewBox.disabled=true;
-      arr[1].style.display="none";
-      arr[2].style.display="none";
-      
-
+      reviewBox.disabled = true;
+      arr[1].style.display = "none";
+      arr[2].style.display = "none";
     }
   };
 
-  let oldReview = localStorage.getItem('oldReview');
+  let oldReview = localStorage.getItem("oldReview");
 
   xhttp.open("POST", "/update", true);
   xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.send(JSON.stringify({ newReview: reviewBox.value ,oldReview:oldReview}));
+  xhttp.send(
+    JSON.stringify({ newReview: reviewBox.value, oldReview: oldReview })
+  );
 }

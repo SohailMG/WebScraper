@@ -3,7 +3,7 @@ window.onload = () => {
   displayReviews();
   checkLogin();
   typeWriter();
-  editPosts();
+  
 };
 window.onscroll = function () {
   myFunction();
@@ -60,9 +60,9 @@ function showInfo() {
         let gridItem = `<div class="grid-item">
         <img src="${element.image}" alt="">
         <div id ="show-info">
-        <p><b>Name:</b>${element.name}</p>
-        <p><b>Ratings:</b>${element.ratings}</p>
-        <p><b>Genres:</b>${element.genres}</p> 
+        <p><b style="color: grey;">Name:</b>${element.name}</p>
+        <p><b style="color: grey;">Ratings:</b>${element.ratings}</p>
+        <p><b style="color: grey;">Genres:</b>${element.genres}</p> 
         </div>
         </div>`;
         gridContainer.innerHTML += gridItem;
@@ -138,14 +138,14 @@ function displayReviews() {
       // let reviews2
       let reviews = reviewInfo.custReviews;
       let averageRating = reviewInfo.avgRatings;
-
+      
       reviews.forEach((elm) => {
         reviewGrid.innerHTML += `<div class="reviewed-box">
         <img src="${elm.image}" alt="">
         <div id="review-contents" class="content-container">
-        <p><b style="color: brown;">Submited by : </b>${elm.name} </p>
-        <p class="review-show-title"><b style="color: brown;">Title :</b> ${elm.title}</p>
-        <p><b style="color: brown;">User Rating :</b> ${elm.rating}/5</p>
+        <p><b style="color: grey;">Submited by : </b>${elm.name} </p>
+        <p class="review-show-title"><b style="color: grey;">Title :</b> ${elm.title}</p>
+        <p><b style="color: grey;">User Rating :</b> ${elm.rating}/5</p>
         <p class="average-review"></b>
         </div>
         <input  id="user-review-box"  type="text" value="${elm.review}" disabled="true">
@@ -155,6 +155,7 @@ function displayReviews() {
       // adding average rating for each show by compare titles
       addAverageRating(averageRating);
       displayStarRating();
+      editPosts();
     }
   };
   xhttp.open("GET", "/reviews", true);

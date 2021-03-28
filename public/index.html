@@ -24,17 +24,14 @@
       <div class="register-btns">
         <button
           class="signup-btn"
-          onclick="document.getElementById('signup-form').style.display='block'"
-        >
-          Sign Up
-        </button>
+          onclick="document.getElementById('signup-form').style.display='block';location.href=`#section1`"   >Sign Up</button>
         <!-- SIGN UP FORM TEMPLATE -->
         <div id="signup-form" class="modal">
           <div class="register-forms">
             <h1>Sign Up</h1>
-            <p id="form-info">Please fill in this form to create an account.</p>
+            <p class="form-info">Please fill in this form to create an account.</p>
             <hr />
-            <label for="email"><b>Email</b></label>
+            <label for="user-email"><b>Email</b></label>
             <input
               type="text"
               placeholder="Enter Email"
@@ -43,20 +40,20 @@
               required
             />
 
-            <label for="psw"><b>Username</b></label>
+            <label for="user-name"><b>Username</b></label>
             <input
               type="text"
               placeholder="Enter Username"
-              name="psw"
+              name="name"
               id="user-name"
               required
             />
 
-            <label for="psw-repeat"><b>Password</b></label>
+            <label for="user-pass"><b>Password</b></label>
             <input
               type="password"
               placeholder="Enter Password"
-              name="psw-repeat"
+              name="pdw"
               id="user-pass"
               required
             />
@@ -74,20 +71,14 @@
               </button>
             </div>
           </div>
-        </div>
-        <!-- sing in form -->
-        <button
-          class="login-btn"
-          onclick="document.getElementById('signin-form').style.display='block'"
-        >
-          Sing In
-        </button>
+        </div>   
+        <button class="login-btn" onclick="document.getElementById('signin-form').style.display='block';location.href=`#section1`">Sign In</button>
         <div id="signin-form" class="modal">
           <div class="register-forms">
             <h1>Sign In</h1>
             <p id="login-info"></p>
             <hr />
-            <label for="email"><b>Email</b></label>
+            <label for="login-email"><b>Email</b></label>
             <input
               type="text"
               placeholder="Enter Email"
@@ -95,7 +86,7 @@
               id="login-email"
               required
             />
-            <label for="psw-repeat"><b>Password</b></label>
+            <label for="login-pass"><b>Password</b></label>
             <input
               type="password"
               placeholder="Repeat Password"
@@ -130,72 +121,18 @@
       </p>
     </div>
     <button id="get-started" onclick="location.href=`#section3`">Get Started</button>
+    </div>
     
       <!--  -->
-      <div id="signup-form" class="modal">
-        <span
-          onclick="document.getElementById('signup-form').style.display='none'"
-          class="close"
-          title="Close Modal"
-          >&times;</span
-        >
-        <form class="modal-content" action="/action_page.php">
-          <div class="container">
-            <h1>Sign Up</h1>
-            <p id="form-info">Please fill in this form to create an account.</p>
-            <hr />
-            <label for="email"><b>Email</b></label>
-            <input
-              type="text"
-              placeholder="Enter Email"
-              name="email"
-              required
-            />
-
-            <label for="psw"><b>Password</b></label>
-            <input
-              type="password"
-              placeholder="Enter Password"
-              name="psw"
-              required
-            />
-
-            <label for="psw-repeat"><b>Repeat Password</b></label>
-            <input
-              type="password"
-              placeholder="Repeat Password"
-              name="psw-repeat"
-              required
-            />
-
-            <label>
-              <input
-                type="checkbox"
-                checked="checked"
-                name="remember"
-                style="margin-bottom: 15px"
-              />
-              Remember me
-            </label>
-
-            <div class="clearfix">
-              <button
-                type="button"
-                onclick="document.getElementById('signup-form').style.display='none'"
-                class="cancelbtn"
-              >
-                Cancel
-              </button>
-              <button type="submit" class="signupbtn">Sign Up</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
 
     <!-- trenidng section -->
     <div class="main" id="section2">
       <h1>Currently Trending</h1>
+      <div class="sortBtns">
+        <button class="btn active" onclick="showGenres(this)">Action</button>
+        <button class="btn" onclick="showGenres(this)">Comedy</button>
+        <button class="btn" onclick="showGenres(this)">Drama</button>
+      </div>
       <div class="grid-container"></div>
     </div>
     <!-- section 3 -->
@@ -205,23 +142,20 @@
         type="text"
         onfocusin="showGlow()"
         onfocusout="hideGlow()"
+        placeholder="Search titles....."
         oninput="submitLink()"
       />
-      <button id="submit-title" onclick="submitLink()">Search</button>
+      <button id="submit-title" onclick="submitLink()">.</button>
       <div id="review-modal" class="modal">
         <div class="review-container">
           <span class="close">&times;</span>
           <h1>Review Show</h1>
           <label for="show">SHOW</label>
-          <input
-            type="text"
-            class="reviewed-show-name"
-            name="show"
-            disabled="true"
+          <input type="text" class="reviewed-show-name" name="show" disabled id="show"
           />
-          <label for="username">USER</label>
+          <label for="reviewname">USER</label>
 
-          <input type="text" class="username" name="usernme" disabled="true" />
+          <input type="text" class="username" name="usernme" disabled id="reviewname" />
           <ul class="rating">
             <li class="rating-item active" data-rate="1"></li>
             <li class="rating-item" data-rate="2"></li>
@@ -232,7 +166,6 @@
           <textarea
             placeholder="Write Review..."
             name="review"
-            id=""
             cols="55"
             rows="8"
             class="review-box"
@@ -270,5 +203,6 @@
     <script src="client.js"></script>
     <script src="client-register.js"></script>
     <script src="client-posts.js"></script>
+    <script src="trending.js"></script>
   </body>
 </html>

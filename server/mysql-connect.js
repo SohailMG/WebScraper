@@ -41,7 +41,7 @@ async function storeNewShow(name, genres, ratings, image, premiered) {
   }
 }
 
-function storeTrendings(id, name, genres, ratings, image, premiered) {
+function storeTrendings( name, genres, ratings, image, premiered) {
   let sql = `INSERT INTO Trending (id, name, genres, ratings, premiered,image)        
   VALUES (default, '${name}', '${genres}', '${ratings}', '${premiered}', '${image}')`;
 
@@ -239,6 +239,22 @@ async function updateReviewPost(newReview,oldreview) {
   });
 }
 
+async function getShowByGenre(genre) {
+  let sql = `SELECT * FROM Trending WHERE genres='${genre}'`;
+  //Wrap the execution of the query in a promise
+  return new Promise((resolve, reject) => {
+    connectionPool.query(sql, (err, result) => {
+      if (err) {
+        //Check for errors
+        reject("Error executing query: " + JSON.stringify(err));
+      } else {
+        //Resolve promise with results
+        resolve(result);
+      }
+    });
+  });
+}
+
 module.exports = {
   storeNewUser,
   storeNewShow,
@@ -248,7 +264,7 @@ module.exports = {
   getUserInfo,
   getShowInfo,
   storeUserReview,
-  getReviews,getAverageRatings,getLoggedName,removeReviewPost,updateReviewPost
+  getReviews,getAverageRatings,getLoggedName,removeReviewPost,updateReviewPost,getShowByGenre
 };
 
 //Execute query and output resul

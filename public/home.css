@@ -10,7 +10,7 @@ html {
   height: 800px;
   /* background-image: url(./images/bg.jpg); */
   background-size: cover;
-  background-color: burlywood;
+  background-color: whitesmoke;
 }
 .sticky {
   text-align: center;
@@ -23,9 +23,8 @@ html {
   padding-top: 60px;
 }
 .navbar a {
-  float: centre;
   font-size: 16px;
-  color: rgb(56, 0, 0);
+  color:white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -51,11 +50,12 @@ html {
   display: flex;
   text-align: center;
   align-items: center;
-  background-color: rgba(220, 220, 220, 0.253);
+  /* background-color: rgba(220, 220, 220, 0.253); */
+  background-color: darkslategrey;
 }
 .navbar a:hover,
 .dropdown:hover .dropbtn {
-  color: darkred;
+  color: grey;
 }
 #home-img > img{
   width: 300px;
@@ -71,7 +71,7 @@ button#get-started {
   width: 200px;
   height: 40px;
   border: none;
-  background-color: darkred;
+  background-color: darkslategray;
   color: white;
   margin-left: 43%;
 }
@@ -117,22 +117,23 @@ div#left-home {
     padding-left: 10%;
 }
 .register-btns > button {
-  background: darkred;
+  background: white;
   border: none;
   padding: 8px 10px 8px 10px;
   border-radius: 5px;
   /* color: #a8bace; */
-  color: white;
+  color: black;
 }
 .register-btns > button:hover{
-  background: burlywood;
+  background: darkslategrey;
 }
 .register-forms{
   margin-left: 31%;
   padding-top: 25px;
   color: burlywood;
   width: 526px;
-  background-color: rgb(59, 7, 7);
+  /* background-color: rgb(59, 7, 7); */
+  background-color: darkslategray;
   padding: 36px;
 }
 .register-forms > label{
@@ -159,19 +160,19 @@ div#left-home {
   margin-left: 34%;
 }
 .clearfix > button {
-  background: burlywood;
+  background: grey;
   border: none;
   padding: 8px 10px 8px 10px;
   border-radius: 5px;
   color: #a8bace;
-  color: darkred;
+  color: white;
 }
 
 /* footer design */
 
 .footer-basic {
   padding:40px 0;
-  background-color:black;
+  background-color:darkslategrey;
   color:whitesmoke;
 }
 

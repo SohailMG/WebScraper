@@ -1,6 +1,6 @@
 
 #section4 {
-  background-color: burlywood;
+  background-color: whitesmoke;
     background-size: cover;
     font-family:'Courier New', Courier, monospace;
   }
@@ -11,9 +11,9 @@
     margin-top: 5%;
     margin-left: 39%;
     font-family: monospace;
-    color: cornsilk;
-    text-shadow: 0 10px 10px black;
-    border-bottom: 1px solid black;
+    color: grey;
+    
+    
     height: 43px;
   }
   
@@ -28,16 +28,12 @@
   }
   .reviewed-box{
     color: white;
-    background-color: burlywood;
+    background-color: darkslategray;
     height: auto;
     padding: 10px;
-    box-shadow: 0 20px 20px saddlebrown;
+    box-shadow: 0 20px 20px darkslategrey;
     display: flex;
     border-radius: 10px;
-  }
-  .reviewed-box:hover{
-    
-    box-shadow:none;
   }
   .reviewed-box > img{
   
@@ -51,7 +47,8 @@
   margin-top: 4%;
   margin-left: 34%;
   border-radius: 10px;
-  background: #495c70;
+  /* background: #495c70; */
+  background-color: darkslategray;
   padding: 30px 30px 15px 30px;
   border: 5px solid #53687e;
   font-family: Georgia, "Times New Roman", Times, serif;
@@ -84,16 +81,16 @@
   background-color: lemonchiffon;
 }
 #user-review-box {
-  color: darkslategrey;
-  font-size: 13px;
+  color: black;
+  font-size: 16px;
   font-family: unset;
   border-radius: 17px;
-  background-color: rgba(255, 255, 255, 0.466);
+  /* background-color: rgba(255, 255, 255, 0.466); */
   text-align: center;
   height: 78px;
   padding: 10px;
   width: 500px;
-  margin-left: 10%;
+  margin-left: 6%;
   /* padding-left: 28px; */
 }
 .username {
@@ -218,8 +215,9 @@ button.edit-post {
   width: 100px;
   margin-left: 70px;
   border: none;
+  border-radius: 20px;
   background-color: ghostwhite;
-  box-shadow: 0 10px 10px gray;
+  box-shadow: 0 10px 10px black;
 }
 button.remove-post {
   display: none;
@@ -228,8 +226,9 @@ button.remove-post {
   width: 100px;
   margin-left: 70px;
   border: none;
+  border-radius: 20px;
   background-color: ghostwhite;
-  box-shadow: 0 10px 10px gray;
+  box-shadow: 0 10px 10px black;
 }
 button.submit-changes {
   display: none;
@@ -238,8 +237,9 @@ button.submit-changes {
   width: 100px;
   margin-left: 70px;
   border: none;
+  border-radius: 20px;
   background-color: ghostwhite;
-  box-shadow: 0 10px 10px gray;
+  box-shadow: 0 10px 10px black;
 }
 .post-btns {
   display: block;
