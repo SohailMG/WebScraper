@@ -33,13 +33,14 @@
   width: 315px;
   background-color: darkslategrey;
   box-shadow: 0 10px 10px darkslategray;
+  height: 198px;
 }
 .search-item > img {
   height: 180px;
 }
 
 .share-btn {
-  box-shadow: 0 10px 10px gray;
+  box-shadow: 0 10px 10px black;
   background-color: white; /* Green */
   border: none;
   color: black;
@@ -52,6 +53,7 @@
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
   text-shadow: 0 0 black;
+  border-radius: 12px;
 }
 .share-btn:hover{
   background: grey;

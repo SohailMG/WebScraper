@@ -30,6 +30,7 @@
           <div class="register-forms">
             <h1>Sign Up</h1>
             <p class="form-info">Please fill in this form to create an account.</p>
+            <p id = "alertMsg"></p>
             <hr />
             <label for="user-email"><b>Email</b></label>
             <input
@@ -127,9 +128,9 @@
 
     <!-- trenidng section -->
     <div class="main" id="section2">
-      <h1>Currently Trending</h1>
+      <h1>Top Rated Shows</h1>
       <div class="sortBtns">
-        <button class="btn active" onclick="showGenres(this)">Action</button>
+        <button class="btn" onclick="showGenres(this)">Action</button>
         <button class="btn" onclick="showGenres(this)">Comedy</button>
         <button class="btn" onclick="showGenres(this)">Drama</button>
       </div>
@@ -143,9 +144,9 @@
         onfocusin="showGlow()"
         onfocusout="hideGlow()"
         placeholder="Search titles....."
-        oninput="submitLink()"
+        oninput="getSearchResults()"
       />
-      <button id="submit-title" onclick="submitLink()">.</button>
+      <button id="submit-title" onclick="getSearchResults()">.</button>
       <div id="review-modal" class="modal">
         <div class="review-container">
           <span class="close">&times;</span>

@@ -1,5 +1,5 @@
 window.onload = () => {
-  showInfo();
+  getTopRated();
   displayReviews();
   checkLogin();
   typeWriter();
@@ -9,7 +9,11 @@ window.onscroll = function () {
   myFunction();
 };
 
-function submitLink() {
+/**
+ * makes a get request to /search with the search
+ * query and outputs the resonse as a grid of shows
+ */
+function getSearchResults() {
   let gridContainer = document.getElementsByClassName("searches-container")[0];
   let searchQuery = document.getElementById("showTitle").value;
   let queryStr = searchQuery.replace(/\s+/g, "-").toLowerCase();
@@ -19,7 +23,7 @@ function submitLink() {
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       let searches = JSON.parse(xhttp.responseText);
-
+      // creating containers for each show with it's details
       searches.forEach((element) => {
         let gridItem = `<div class="search-item">
         <img src="${element.image}" alt="">
@@ -42,36 +46,10 @@ function submitLink() {
       }
     }
   };
+  xhttp.open("GET", `/search?show=${queryStr}`);
+  xhttp.send()
+}
 
-  console.log(queryStr);
-  xhttp.open("POST", "/search", true);
-  xhttp.setRequestHeader("Content-type", "application/json");
-  xhttp.send(JSON.stringify({ Title: queryStr }));
-}
-function showInfo() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      let showInfo = JSON.parse(xhttp.responseText);
-      showInfo.forEach((element) => {
-        let gridContainer = document.getElementsByClassName(
-          "grid-container"
-        )[0];
-        let gridItem = `<div class="grid-item">
-        <img src="${element.image}" alt="">
-        <div id ="show-info">
-        <p><b style="color: grey;">Name:</b>${element.name}</p>
-        <p><b style="color: grey;">Ratings:</b>${element.ratings}</p>
-        <p><b style="color: grey;">Genres:</b>${element.genres}</p> 
-        </div>
-        </div>`;
-        gridContainer.innerHTML += gridItem;
-      });
-    }
-  };
-  xhttp.open("GET", "/shows", true);
-  xhttp.send();
-}
 
 var navbar = document.getElementsByClassName("navbar")[0];
 var sticky = navbar.offsetTop;
@@ -93,17 +71,7 @@ function hideGlow() {
   inputFiled.style.boxShadow = " 0  0 10px black";
 }
 
-function getTrends() {
-  var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      let showInfo = JSON.parse(xhttp.responseText);
-      console.log(showInfo);
-    }
-  };
-  xhttp.open("GET", "/home", true);
-  xhttp.send();
-}
+
 
 let shareBtns = document.getElementsByClassName("share-btn");
 for (let i = 0; i < shareBtns.length; i++) {
@@ -111,8 +79,6 @@ for (let i = 0; i < shareBtns.length; i++) {
 
   addReviewBtns.addEventListener("click", submitShow);
 }
-
-
 const container = document.querySelector(".rating");
 const items = container.querySelectorAll(".rating-item");
 container.onclick = (e) => {
@@ -129,6 +95,12 @@ container.onclick = (e) => {
   }
 };
 
+/**
+ * makes a get request to /reviews and outputs
+ * the reponse of each review with the name of the
+ * user who submitted along with the average rating and 
+ * show details
+ */
 function displayReviews() {
   let reviewGrid = document.getElementsByClassName("reviews-grid")[0];
   var xhttp = new XMLHttpRequest();
@@ -152,7 +124,7 @@ function displayReviews() {
         
        </div>`;
       });
-      // adding average rating for each show by compare titles
+      // adding average rating for each show by comparing titles
       addAverageRating(averageRating);
       displayStarRating();
       editPosts();
@@ -162,6 +134,7 @@ function displayReviews() {
   xhttp.send();
 }
 
+// typewriter effect for home page
 var i = 0;
 var txt = `Share your favourite TV Show series.
 Add your thoughts on your favourite show 
@@ -176,6 +149,10 @@ function typeWriter() {
   }
 }
 
+/**
+ * adds star rating for each post according to it's 
+ * current review value
+ */
 function displayStarRating() {
   let ratingDiv = `<div class="avgRating">`;
   let starsDiv = `<span class="fa fa-star"></span>
@@ -185,6 +162,8 @@ function displayStarRating() {
       <span class="fa fa-star"></span>`;
   // let ratingContents = document.getElementById('review-contents');
 
+  // looping through each post and retrieving their current 
+  // review value
   let reviewBox = document.querySelectorAll(".reviewed-box");
   reviewBox.forEach((element) => {
     let ratingContents = element.querySelector("#review-contents");
@@ -195,7 +174,7 @@ function displayStarRating() {
     );
 
     let starsContainer = element.getElementsByClassName("avgRating");
-    // console.log(starsContainer);
+    // going through each post and adding star value in accordance to rating
     for (let i = 0; i < starsContainer.length; i++) {
       let star = starsContainer[i].getElementsByClassName("fa-star");
       for (let j = 0; j < star.length; j++) {

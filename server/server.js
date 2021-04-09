@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const db = require("./mysql-connect");
 const url = require("url")
-const requestAPI = require("request");
+const request = require("request");
 const app = express();
 const port = 3000;
 const APIEndpoint = "http://api.tvmaze.com/";
@@ -14,6 +14,10 @@ app.use(bodyParser.json());
 
 
 //handles post request of show data being added
+app.get("/search", getSearches);
+app.post("/update", updatePost);
+app.post("/remove", removePost);
+app.get("/reviews", displayReviews);
 app.post("/shows", (request, response) => {
   //stores show data into database
   let show = request.body.Show;
@@ -56,9 +60,6 @@ app.get("/sort",async function (req,res) {
   res.send(JSON.stringify(shows))
   
 })
-
-
-
 app.get("/shows", async (request, response) => {
   //Output the data sent to the server
   let allData = await db.getAllTrending();
@@ -66,10 +67,7 @@ app.get("/shows", async (request, response) => {
   response.send(randomShows)
 });
 
-app.post("/search", getSearches);
-app.post("/update", updatePost);
-app.post("/remove", removePost);
-app.get("/reviews", displayReviews);
+
 
 async function displayReviews(req, res) {
   let custReviews = await db.getReviews();
@@ -88,10 +86,10 @@ async function displayReviews(req, res) {
  */
 function getSearches(req, res) {
   const MAX_SEARCHES = 5;
-  let searchQuery = req.body.Title;
+  const searchQuery = url.parse(req.url,true).query.show
   let showD = [];
   // get request to api with search query
-  requestAPI(
+  request(
     `${APIEndpoint}/search/shows?q=${searchQuery}`,
     function (error, response, body) {
       let data;
@@ -100,14 +98,14 @@ function getSearches(req, res) {
         for (let i = 0; i < MAX_SEARCHES; i++) {
           if (data[i] !== undefined) {
             if (data[i].show.image != null) {
-              let shows = {
-                name: data[i].show.name,
-                genres: data[i].show.genres,
-                ratings: data[i].show.rating.average,
-                premiered: data[i].show.premiered,
-                image: data[i].show.image.medium,
-              };
-              showD.push(shows);
+              let newShow = new Show(
+                data[i].show.name,
+                data[i].show.rating.average,
+                data[i].show.genres[0],
+                data[i].show.premiered,
+                data[i].show.image.medium
+              );
+              showD.push(newShow);
             } else {
             }
           }
@@ -118,18 +116,28 @@ function getSearches(req, res) {
   );
 }
 
+/**
+ * making a get request to the API with for all shows data
+ * looping through JSON data and extracting all shows that have
+ * drama,action or comedy genres with rating more than 7
+ * 
+ */
 (function getAllShows() {
-  requestAPI(`${APIEndpoint}shows`, function (error, response, body) {
+  // API request to endpoint
+  request(`${APIEndpoint}shows`, function (error, response, body) {
     let data;
     let drama = [];
     let Action = [];
     let Comedy = [];
     if (!error && response.statusCode == 200) {
       data = JSON.parse(body);
+      // looping through object of shows data
       for (let i = 0; i < data.length; i++) {
         const show = data[i];
+        // checking if current show is drama genre
         if (show.genres[0] == "Drama") {
-          if (show.rating.average > 5) {
+          if (show.rating.average > 7) {
+            // instantiating Show class contructor
             let newShow = new Show(
               show.name,
               show.rating.average,
@@ -140,8 +148,9 @@ function getSearches(req, res) {
             drama.push(newShow);
           }
         }
+        // checking if current show has Action genre
         if (show.genres[0] == "Action") {
-          if (show.rating.average > 5) {
+          if (show.rating.average > 7) {
             let newShow = new Show(
               show.name,
               show.rating.average,
@@ -152,8 +161,9 @@ function getSearches(req, res) {
             Action.push(newShow);
           }
         }
+        // checking if current show has comedy genre
         if (show.genres[0] == "Comedy") {
-          if (show.rating.average > 5) {
+          if (show.rating.average > 7) {
             let newShow = new Show(
               show.name,
               show.rating.average,
@@ -167,11 +177,14 @@ function getSearches(req, res) {
       }
     }
 
+    // decreasing the length of each array of shows to 6 shows per array
     drama.splice(0, drama.length - 6);
     Action.splice(0, Action.length - 6);
     Comedy.splice(0, Comedy.length - 6);
+    // combining all arrays into one array
     let allShows = Action.concat(drama).concat(Comedy);
       db.deleteCurrentData();
+      // storing all shows into database
     allShows.forEach(show => {
       db.storeTrendings(show.name,show.genre,show.rating,show.image,show.date);
       
@@ -183,6 +196,14 @@ function getSearches(req, res) {
   });
 }());
 
+/**
+ * handles post request to reviews path send from 
+ * client and stores review details with show id to the 
+ * review table in the database then responds to server with
+ * confirmation message
+ * @param {JSON} request 
+ * @param {JSON} response 
+ */
 async function storeShowReview(request, response) {
   //stores show data into database
   let review = request.body.reviews;
@@ -191,6 +212,8 @@ async function storeShowReview(request, response) {
   let customerReview = review.content;
   let rating = review.rating;
 
+  // retrieving details of user submiting the review
+  // and details of show being reviewed
   let userInfo = await db.getUserInfo(userEmail);
   let showInfo = await db.getShowInfo(showName);
   const storedShowName = showInfo[0].title;
@@ -198,30 +221,47 @@ async function storeShowReview(request, response) {
   const show_id = showInfo[0].show_id;
   const user_id = userInfo[0].user_id;
 
+  // checking if user matches send user and show exists
   if (storedUserEmail == userEmail && storedShowName == showName) {
     db.storeUserReview(show_id, user_id, rating, customerReview);
     response.send({ message: "Review Added" });
   }
 }
-
+/**
+ * restrievees the name of the currently logged user and 
+ * sends back to the client
+ * @param {JSON} request 
+ * @param {JSON} response 
+ */
 async function getLoggedName(request, response) {
   let postedEmail = request.body.userEmail;
   let loggedName = await db.getLoggedName(postedEmail);
   response.send(loggedName);
 }
+/**
+ * handles post request of review to be removed
+ * removed the review from the database
+ * @param {JSON} request 
+ * @param {JSON} response 
+ */
 async function removePost(request, response) {
   let reviewContent = request.body.review;
-  console.log(reviewContent);
   let deletedRow = await db.removeReviewPost(reviewContent);
   console.log({ deletedRow });
   // response.send(loggedName)
 }
+/**
+ * Handles post request with review being updated
+ * takes old and new review and updates review table column
+ * @param {*} request 
+ * @param {*} response 
+ */
 async function updatePost(request, response) {
   let updatedContent = request.body;
   let oldReview = updatedContent.oldReview;
   let newReview = updatedContent.newReview;
 
-  let updated = await db.updateReviewPost(newReview, oldReview);
+   await db.updateReviewPost(newReview, oldReview);
   response.send({ updated: newReview });
 }
 

@@ -1,6 +1,6 @@
 
 /**
- * 
+ * class to store each show and their details
  */
 class Show {
 

@@ -3,7 +3,10 @@
 let user_email = document.getElementById('user-email')
 let user_pass = document.getElementById('user-pass')
 let user_name = document.getElementById('user-name')
-
+/**
+ * sends all user data extracted from 
+ * the form to the server to be stored
+ */
 function sendUserData(){
     let user_data = {
         username:user_name.value,
@@ -17,22 +20,16 @@ function sendUserData(){
       let res = JSON.parse(xhttp.responseText);
       if (res.message == 'user added') {
         
-          let alertMsg = document.getElementById('form-info');      
-          alertMsg.innerHTML = "Account Added Successfuly!";
-          alertMsg.style.color="lawngreen";
           user_email.value="";
           user_pass.value="";
           user_name.value="";
-          document.getElementsByClassName('modal')[0].style.display="none"
+          document.getElementsByClassName('register-forms')[0].style.display="none"
           document.getElementById('signin-form').style.display="block"
 
           
       }
     }
   };
-
-
-
   xhttp.open("POST", "/register", true);
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send(JSON.stringify({ userInfo: user_data }));
@@ -62,7 +59,9 @@ function sendLoginData(){
           document.getElementsByClassName('modal')[0].style.display="none" 
           checkLogin();  
       }else{
-        console.log(xhttp.responseText)
+        document.querySelector('#login-info').innerHTML = "Incorrect Details";
+        document.querySelector('#login-info').style.color="red";
+        
       }
     }
   };
@@ -73,13 +72,11 @@ function sendLoginData(){
 
 }
 
-// Get the modal
-var modal = document.getElementById("review-modal");
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-// When the user clicks on <span> (x), close the modal
+
+let modal = document.getElementById("review-modal");
+let btn = document.getElementById("myBtn");
+let span = document.getElementsByClassName("close")[0];
+// When the user clicks on <span> (x), closes the modal
 span.onclick = function () {
   modal.style.display = "none";
 };
@@ -89,7 +86,7 @@ window.onclick = function (event) {
     modal.style.display = "none";
   }
 };
-
+// checks if there's a customer session active
 function checkLogin(){
   let headerBtns = document.getElementsByClassName('register-btns')[0];
   let logoutBtn = '<button id="logout-btn" onclick="logout()">Logout</button>';
@@ -101,7 +98,7 @@ function checkLogin(){
 
   
 }
-
+// removes current session for logged customer
 function logout(){
   sessionStorage.removeItem('loggedInEmail');
   location.reload();

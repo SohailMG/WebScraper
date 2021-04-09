@@ -7,7 +7,7 @@ let connectionPool = mysql.createPool({
   host: "localhost",
   user: "root",
   password: "rootpass123",
-  database: "scrapperApp",
+  database: "ShowsHub",
   debug: false,
 });
 
@@ -42,7 +42,7 @@ async function storeNewShow(name, genres, ratings, image, premiered) {
 }
 
 function storeTrendings( name, genres, ratings, image, premiered) {
-  let sql = `INSERT INTO Trending (id, name, genres, ratings, premiered,image)        
+  let sql = `INSERT INTO Trending (id, title, genres, ratings, premiered,image)        
   VALUES (default, '${name}', '${genres}', '${ratings}', '${premiered}', '${image}')`;
 
   connectionPool.query(sql, (err, result) => {
@@ -180,7 +180,7 @@ async function getAverageRatings() {
 }
 
 function storeUserReview(show_id, user_id, rating, review) {
-  let sql = `INSERT INTO Reviews (review_id,show_id, user_id, rating,review)        
+  let sql = `INSERT INTO Reviews (reviews_id,show_id, user_id, rating,review)        
   VALUES (default, '${show_id}', '${user_id}','${rating}','${review}')`;
 
   connectionPool.query(sql, (err, result) => {

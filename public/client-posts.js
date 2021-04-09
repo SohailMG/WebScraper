@@ -1,3 +1,9 @@
+/**
+ * takes details of show to be reviewed. displays a review form
+ *  stores into database
+ * @param {click} event
+ * @returns
+ */
 function submitShow(event) {
   let reviewBox = document.getElementsByClassName("review-container")[0];
   let modal = document.getElementById("review-modal");
@@ -31,7 +37,6 @@ function submitShow(event) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
       if (this.readyState == 4 && this.status == 200) {
-        console.log(xhttp.responseText);
         reviewBox.style.display = "block";
         modal.style.display = "block";
       }
@@ -43,6 +48,10 @@ function submitShow(event) {
 }
 
 let customerRating;
+/**
+ * makes a post request with the review details to the server
+ * to be stored into the review table
+ */
 function submitReview() {
   let reviewContainer = document.getElementsByClassName("review-container")[0];
   let showName = document.getElementsByClassName("reviewed-show-name")[0];
@@ -75,10 +84,17 @@ function submitReview() {
   xhttp.send(JSON.stringify({ reviews: review }));
 }
 
+/**
+ * loops through all reviews with the same show title
+ * then adds the average review to each show
+ * @param {number} averageRating
+ */
 function addAverageRating(averageRating) {
   let reviewBoxTitles = document.querySelectorAll(".review-show-title");
+  // looping through each review box
   for (let i = 0; i < reviewBoxTitles.length; i++) {
     const boxTitle = reviewBoxTitles[i].innerText.replace("Title : ", "");
+    // looping through each title and checking for matching titles
     for (let j = 0; j < averageRating.length; j++) {
       const rating = averageRating[j];
       if (rating.title == boxTitle) {
@@ -90,7 +106,10 @@ function addAverageRating(averageRating) {
     }
   }
 }
-
+/**
+ * adds buttons to each post that belongs
+ * to the currently logged user
+ */
 function editPosts() {
   let loggedEmail = sessionStorage.getItem("loggedInEmail");
   let xhttp = new XMLHttpRequest();
@@ -99,6 +118,8 @@ function editPosts() {
       let responseData = JSON.parse(xhttp.responseText);
       let loggedName = responseData[0].name;
       let postContainer = document.querySelectorAll(".reviewed-box");
+      // looping through each post and adding edit buttons to all
+      // posts that belongs to logged user
       for (let i = 0; i < postContainer.length; i++) {
         const post = postContainer[i];
         let postcontent = post.getElementsByClassName("content-container")[0];
@@ -121,7 +142,11 @@ function editPosts() {
   xhttp.setRequestHeader("Content-type", "application/json");
   xhttp.send(JSON.stringify({ userEmail: loggedEmail }));
 }
-
+/**
+ * makes a post request of the old review as well as the
+ * new edited review to be updated
+ * @param {HTMLElement} elm 
+ */
 function editCurrentPost(elm) {
   let parentDiv = elm.parentNode.parentNode;
   let reviewBox = parentDiv.querySelector("#user-review-box");
