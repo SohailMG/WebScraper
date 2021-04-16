@@ -6,7 +6,7 @@ let connectionPool = mysql.createPool({
   connectionLimit: 1,
   host: "localhost",
   user: "root",
-  password: "rootpass123",
+  password: "password",
   database: "ShowsHub",
   debug: false,
 });
