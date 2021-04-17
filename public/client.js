@@ -25,13 +25,14 @@ function getSearchResults() {
       let searches = JSON.parse(xhttp.responseText);
       // creating containers for each show with it's details
       searches.forEach((element) => {
+	console.log(element)
         let gridItem = `<div class="search-item">
         <img src="${element.image}" alt="">
         <div id ="show-info">
         <p><b>Name:</b>${element.name}</p>
-        <p><b>Ratings:</b>${element.ratings}</p>
-        <p><b>Genres:</b>${element.genres}</p>
-        <p><b>Premiered:</b>${element.premiered}</p>
+        <p><b>Ratings:</b>${element.rating}</p>
+        <p><b>Genres:</b>${element.genre}</p>
+        <p><b>Premiered:</b>${element.date}</p>
         <button class="share-btn">Add Review</button> 
         </div>
         </div>`;

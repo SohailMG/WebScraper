@@ -4,10 +4,12 @@ function getTopRated() {
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       let showInfo = JSON.parse(xhttp.responseText);
+
       showInfo.forEach((element) => {
         let gridContainer = document.getElementsByClassName(
           "grid-container"
         )[0];
+	
         let gridItem = `<div class="grid-item">
         <img src="${element.image}" alt="">
         <div id ="show-info">

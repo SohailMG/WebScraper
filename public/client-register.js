@@ -54,6 +54,7 @@ function sendLoginData(){
           alertMsg.innerHTML = "Login Successfuly!";
           login_pass.value="";
           login_email.value="";
+	
           
           sessionStorage.setItem('loggedInEmail',user_data.email) 
           document.getElementsByClassName('modal')[0].style.display="none" 

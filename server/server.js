@@ -98,6 +98,7 @@ function getSearches(req, res) {
         for (let i = 0; i < MAX_SEARCHES; i++) {
           if (data[i] !== undefined) {
             if (data[i].show.image != null) {
+console.log(data[i].show.rating.average);
               let newShow = new Show(
                 data[i].show.name,
                 data[i].show.rating.average,
